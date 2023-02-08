@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    // permission
+    public const PERMISSION_ROOT     = 99;
+    public const PERMISSION_SYSTEM   = 80;
+    public const PERMISSION_ADMIN    = 70;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'permission',
     ];
 
     /**
