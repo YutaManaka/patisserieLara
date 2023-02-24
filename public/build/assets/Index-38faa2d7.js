@@ -1,0 +1,1 @@
+import{_ as s}from"./_plugin-vue_export-helper-c27b6911.js";import{e as t,F as o,h as a,o as e,t as c}from"./app-41f5185f.js";const l={props:{users:Object}},u=["textContent"];function _(i,p,n,m,d,f){return e(),t("ul",null,[(e(!0),t(o,null,a(n.users,r=>(e(),t("li",{textContent:c(r.name)},null,8,u))),256))])}const $=s(l,[["render",_]]);export{$ as default};
