@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/users', \App\Http\Controllers\UserController::class)->names([
+    'index'   => 'user',
+    'create'  => 'user.create',
+    'store'   => 'user.store',
+    'show'    => 'user.show',
+    'update'  => 'user.update',
+    'destroy' => 'user.destroy',
+]);
