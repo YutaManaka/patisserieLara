@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +16,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-Route::resource('/users', \App\Http\Controllers\UserController::class)->names([
-    'index'   => 'user',
-    'create'  => 'user.create',
-    'store'   => 'user.store',
-    'show'    => 'user.show',
-    'update'  => 'user.update',
-    'destroy' => 'user.destroy',
-]);
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    // アカウント
+    Route::resource('/users', \App\Http\Controllers\UserController::class)->names([
+        'index'   => 'user',
+        'create'  => 'user.create',
+        'store'   => 'user.store',
+        'show'    => 'user.show',
+        'update'  => 'user.update',
+        'destroy' => 'user.destroy',
+    ]);
+});
