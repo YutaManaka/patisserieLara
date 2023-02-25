@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ name }};
+
+class {{ class }}
+{
+    public function execute({{ name }} $model): bool
+    {
+        return (bool) $model->delete();
+    }
+}

@@ -36,11 +36,6 @@ class User extends Authenticatable
         'name'                   => 'ユーザ名',
         'email'                  => 'ログインID',
         'permission'             => '権限',
-        'top_page_destination'   => 'ログイン後の遷移先を変更',
-        'tenant'                 => '担当店舗',
-        'header_name'            => '名前',
-        'header_email'           => 'ログインID',
-        'header_permission_name' => '権限',
     ];
 
     /**

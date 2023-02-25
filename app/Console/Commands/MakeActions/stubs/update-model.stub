@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ name }};
+
+class {{ class }}
+{
+    public function execute({{ name }} $model, array $attributes): {{ name }}
+    {
+        $model->update($attributes);
+
+        return $model->refresh();
+    }
+}

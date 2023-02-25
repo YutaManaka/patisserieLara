@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ name }};
+
+class {{ class }}
+{
+    public function execute(array $attributes): {{ name }}
+    {
+        return {{ name }}::create($attributes);
+    }
+}
