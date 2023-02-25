@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Actions\Menu\GetPermittedMenu;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,8 +37,18 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // 管理画面の場合
         return array_merge(parent::share($request), [
-            //
+        'menuItems' => auth()->guest() ? [] : app(GetPermittedMenu::class)->execute(auth()->user()),
+            'flash' => function () use ($request) {
+                return [
+                    'success' => $request->session()->get('success'),
+                    'error'   => $request->session()->get('error'),
+                ];
+            },
         ]);
+
+        // ショップ画面の場合
+        return parent::share($request);
     }
 }
