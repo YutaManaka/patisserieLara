@@ -10,8 +10,11 @@
             <div class="bg-white shadow-md rounded my-6">
               <data-table
                 :headers="headers"
-                :items="users"
+                :items="users.data"
                 @row-click="onRowClicked">
+                <template #permission="{ item }">
+                  {{ switchPermissionName(item.permission) }}
+                </template>
               </data-table>
             </div>
           </div>
@@ -41,12 +44,19 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  permissions: {
+    type: Object,
+    required: true,
+  },
 })
 
 const headers = {
-  name: props.userLabels.header_name,
-  email: props.userLabels.header_email,
-  permission_name: props.userLabels.header_permission_name,
+  name: props.userLabels.name,
+  email: props.userLabels.email,
+  permission: props.userLabels.permission,
+}
+const switchPermissionName = (permission) => {
+    return props.permissions[permission]
 }
 const onRowClicked = (user) => {
   Inertia.get(route('user.show', {

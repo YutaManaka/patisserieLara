@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }}
+{
+    public function __construct(private Filter{{ names }} $filter)
+    {
+    }
+
+    public function execute(array $params = [], string $sort = 'id', string $order = 'desc'): Builder
+    {
+        return $this->filter
+            ->execute($params)
+            ->orderBy($sort, $order);
+    }
+}

@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ name }};
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }}
+{
+    protected Builder $query;
+
+    public function __construct({{ name }} $model)
+    {
+        $this->query = $model->newQuery();
+    }
+
+    public function execute(array $params = []): Builder
+    {
+        return $this->query;
+    }
+}
