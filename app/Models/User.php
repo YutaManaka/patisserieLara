@@ -18,6 +18,31 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    // 権限
+    public const PERMISSION_ROOT     = 99;
+    public const PERMISSION_SYSTEM   = 80;
+    public const PERMISSION_ADMIN    = 70;
+
+    // 権限名
+    public const PERMISSION_NAMES = [
+        self::PERMISSION_ROOT                      => 'root',
+        self::PERMISSION_SYSTEM                    => 'システム',
+        self::PERMISSION_ADMIN                     => 'Admin',
+    ];
+
+    public const USER_LABELS = [
+        'index_title'            => 'アカウント一覧',
+        'form_title'             => 'アカウント設定',
+        'name'                   => 'ユーザ名',
+        'email'                  => 'ログインID',
+        'permission'             => '権限',
+        'top_page_destination'   => 'ログイン後の遷移先を変更',
+        'tenant'                 => '担当店舗',
+        'header_name'            => '名前',
+        'header_email'           => 'ログインID',
+        'header_permission_name' => '権限',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,4 +83,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function getPermissionNames(): array
+    {
+        return self::PERMISSION_NAMES;
+    }
 }
