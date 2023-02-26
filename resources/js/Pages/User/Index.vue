@@ -17,6 +17,13 @@
                 </template>
               </data-table>
             </div>
+            <div class="mb-5">
+              <pagination
+                :paginate="users"
+                @page-previous="onPaginationChanged"
+                @page-next="onPaginationChanged"
+                @page-click="onPaginationChanged" />
+            </div>
           </div>
         </div>
       </div>
@@ -34,6 +41,7 @@ import { Inertia } from '@inertiajs/inertia'
 import PanelLayout from '@/Components/PanelLayout'
 import WhiteButton from '@/Components/WhiteButton'
 import DataTable from '@/Components/DataTable'
+import Pagination from '@/Components/Pagination'
 
 const props = defineProps({
   users: {
@@ -65,5 +73,10 @@ const onRowClicked = (user) => {
 }
 const onCreateClicked = () => {
   Inertia.get(route('user.create'))
+}
+const onPaginationChanged = (page) => {
+  Inertia.get(route('user', {
+    page,
+  }))
 }
 </script>

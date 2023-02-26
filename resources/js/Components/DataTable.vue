@@ -7,7 +7,7 @@
       :class="tableClass">
       <thead>
         <tr
-          class="bg-gray-200 text-gray-600 leading-normal"
+          class="bg-neutral-200 text-neutral-700 leading-normal"
           :class="trClass">
           <th
             v-for="(title, key) in headers"
@@ -20,7 +20,7 @@
       </thead>
       <tbody
         v-if="!noTenantText && items.length > 0"
-        class="text-gray-600 text-sm font-light">
+        class="text-neutral-700 text-sm font-light">
         <tr
           v-for="(item, index) in items"
           :key="item.id"

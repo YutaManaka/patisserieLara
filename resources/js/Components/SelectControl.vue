@@ -3,7 +3,7 @@
     <div class="flex relative">
       <label
         :for="id"
-        class="block font-medium text-sm text-gray-700"
+        class="block font-medium text-sm text-neutral-700"
         :class="{ 'text-red-600': !!error }">
         {{ label }}
       </label>
