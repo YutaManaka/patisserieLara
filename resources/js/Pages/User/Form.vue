@@ -22,46 +22,15 @@
           :error="form.errors?.email"
           class="mt-1 block w-7/12" />
       </div>
-      <div class="col-span-6 mt-4">
-        <label
-          for="permission"
-          class="block font-medium text-sm text-gray-700">
-          {{ userLabels.permission }}
-        </label>
-        <select
-          id="permission"
-          v-model.number="form.permission"
-          class="appearance-none text-gray-600 bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded"
-          @change="onChangedPermission">
-          <option
-            v-for="(permission, id) in permissions"
-            :key="id"
-            :value="id">
-            {{ permission }}
-          </option>
-        </select>
+      <div class="col-span-6">
+        <select-control
+          v-model="form.permission"
+          :label="userLabels.permission"
+          :error="form.errors.permission"
+          :options="permissions"
+          class="mt-1 ">
+        </select-control>
       </div>
-      <!-- <div
-        v-if="tenants.length > 1 && form.permission >= 20 && form.permission <= 29"
-        class="col-span-6 mt-4">
-        <label
-          for="permission"
-          class="block font-medium text-sm text-gray-700">
-          {{ userLabels.tenant }}
-        </label>
-        <select
-          id="tenant"
-          v-model="form.table_order_tenant_id"
-          class="appearance-none text-gray-600 bg-white border border-gray-400 shadow-inner px-4 py-2 pr-8 rounded">
-          <option
-            v-for="(tenant, id) in tenants"
-            :key="id"
-            :value="tenant.id">
-            {{ tenant.name }}
-          </option>
-        </select>
-      </div> -->
-
       <label
         v-if="!isNew"
         class="flex items-center mt-5 mb-5">
@@ -124,15 +93,16 @@ export default { name: 'UserForm' }
 
 <script setup>
 import {
-  ref, reactive, onMounted, computed,
+  ref, onMounted,
 } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import AppLayout from '@/Layouts/AppLayout'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import FormPanelLayout from '@/Components/FormPanelLayout'
 import JetCheckbox from '@/Components/Checkbox'
 import JetSecondaryButton from '@/Components/SecondaryButton'
-import ConfirmationModal from '@/Components/ConfirmationModal'
 import InputControl from '@/Components/InputControl'
-import FormPanelLayout from '@/Components/FormPanelLayout'
+import SelectControl from '@/Components/SelectControl'
 import WarningButton from '@/Components/WarningButton'
 import WarningPanelLayout from '@/Components/WarningPanelLayout'
 import { useForm } from '@inertiajs/vue3'
@@ -154,14 +124,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  // tenants: {
-  //   type: Array,
-  //   required: true,
-  // },
-  // transactionPermissions: {
-  //   type: Object,
-  //   required: true,
-  // },
   userLabels: {
     type: Object,
     required: true,
@@ -172,18 +134,12 @@ const showConfirmationModal = ref(false)
 const form = useForm({
   name: '',
   email: '',
-  permission: 1,
-  top_page_transition: 0,
-  table_order_tenant_id: null,
+  permission: null,
   change_password: false,
   new_password: '',
 })
 
-// const isTenantUser = computed(() => form.permission >= 20 && form.permission <= 29)
 const onSubmitted = async () => {
-  // if (isTenantUser.value && props.tenants.length === 1) {
-  //   form.table_order_tenant_id = props.tenants[0].id
-  // }
   if (props.isNew) {
     await form.post(route('user.store'), {
       preserveScroll: true,
@@ -192,11 +148,6 @@ const onSubmitted = async () => {
     await form.put(route('user.update', { user: props.account.id }), {
       preserveScroll: true,
     })
-  }
-}
-const onChangedPermission = (e) => {
-  if (props.permissions[e.target.value]  === 'レジ端末用ユーザー') {
-    form.top_page_transition = 0
   }
 }
 const onReturnClicked = () => Inertia.visit(route('user'))
@@ -209,9 +160,7 @@ onMounted(() => {
     form.name = props.account.name
     form.email = props.account.email
     form.permission = props.account.permission
-    form.top_page_transition = props.account.top_page_transition
     form.change_password = props.account.change_password
-    form.table_order_tenant_id = props.account.table_order_tenant_id
     form.new_password = props.account.new_password
   }
 })
