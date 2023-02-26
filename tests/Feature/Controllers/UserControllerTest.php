@@ -100,7 +100,8 @@ class UserControllerTest extends TestCase
    {
         $user6 = User::factory()->create();
         $response = $this->delete(route('user.destroy', [ 'user' => $user6->id]));
-        $response->assertStatus(200);
+        $response->assertStatus(302);
+        $response->assertRedirect('users');
 
         // findできない
         $this->assertNull(User::find($user6->id));

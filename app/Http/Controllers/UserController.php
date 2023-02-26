@@ -74,10 +74,7 @@ class UserController extends Controller
     public function destroy(User $user, DeleteUser $action)
     {
         $action->execute($user);
-        $props = [
-            'users' => User::paginate(),
-        ];
 
-        return Inertia::render('User/Index', $props);
+        return Redirect::route('user')->with('success', '削除しました。');
     }
 }

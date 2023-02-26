@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto pt-20 pb-10 px-8">
     <div
-      class="border-red-700 bg-gray-600 text-gray-50 font-bold text-2xl border-l-8 py-3 px-3 flex"
+      class="bg-neutral-700 text-gray-50 font-bold text-2xl py-3 px-3 flex"
       :class="h1Hidden">
       <h1>{{ title }}</h1>
       <slot name="help"></slot>
