@@ -19,7 +19,6 @@ class StoreUserRequest extends FormRequest
             'name'                => 'ユーザ名',
             'email'               => 'ログインID',
             'permission'          => '権限',
-            'top_page_transition' => 'トップ画面の遷移先を変更',
             'change_password'     => 'パスワードを変更する',
             'new_password'        => 'パスワード',
         ];
@@ -34,8 +33,7 @@ class StoreUserRequest extends FormRequest
                 'max: 25',
                 Rule::unique(User::class)->ignore($this->id ?? $this->user->id ?? null),
             ],
-            'permission'          => ['nullable'],
-            'top_page_transition' => ['nullable'],
+            'permission'          => ['required'],
             'change_password'     => ['nullable'],
             'new_password'        => ['required', 'min:6'],
         ];

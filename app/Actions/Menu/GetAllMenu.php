@@ -15,7 +15,7 @@ class GetAllMenu
         'management' => [
             'name'  => '店舗管理',
             'items' => [
-                // 'transactions' => [
+                // 'transaction' => [
                 //     'name'        => '売上',
                 //     'route'       => 'management.transaction',
                 //     'permissions' => [

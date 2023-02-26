@@ -24,6 +24,7 @@ Route::get('/', function () {
     ]);
 });
 
+// 認証内
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
