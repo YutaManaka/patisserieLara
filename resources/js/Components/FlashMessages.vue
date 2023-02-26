@@ -1,7 +1,7 @@
 <template>
   <transition-group appear>
     <div
-      v-if="$page.props.jetstream.flash.success && show"
+      v-if="$page.props.flash.success && show"
       class="fixed top-14 flex items-center justify-between bg-green-600 w-full opacity-90">
       <div class="flex items-center">
         <svg
@@ -13,7 +13,7 @@
             points="0 11 2 9 7 14 18 3 20 5 7 18" />
         </svg>
         <div class="pt-8 pb-4 text-white text-sm font-medium">
-          {{ $page.props.jetstream.flash.success }}
+          {{ $page.props.flash.success }}
         </div>
       </div>
       <button

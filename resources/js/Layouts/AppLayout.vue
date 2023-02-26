@@ -104,7 +104,7 @@
         <!-- Page Content -->
         <main>
           <flash-messages
-            :on="$page.props.jetstream.flash" />
+            :on="$page.props.flash" />
           <slot />
         </main>
       </div>
