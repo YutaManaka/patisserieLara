@@ -23,14 +23,14 @@ class GetAllMenu
                 //         User::PERMISSION_ADMIN,
                 //     ],
                 // ],
-                // 'category' => [
-                //     'name'        => 'カテゴリ',
-                //     'route'       => 'management.category',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
+                'category' => [
+                    'name'        => 'カテゴリ',
+                    'route'       => 'management.category',
+                    'permissions' => [
+                        User::PERMISSION_SYSTEM,
+                        User::PERMISSION_ADMIN,
+                    ],
+                ],
                 // 'item' => [
                 //     'name'        => '商品',
                 //     'route'       => 'management.item',

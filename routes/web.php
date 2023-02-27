@@ -34,6 +34,16 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    // カテゴリ
+    Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->names([
+        'index'   => 'category',
+        'create'  => 'category.create',
+        'store'   => 'category.store',
+        'show'    => 'category.show',
+        'update'  => 'category.update',
+        'destroy' => 'category.destroy',
+    ]);
+
     // アカウント
     Route::resource('/users', \App\Http\Controllers\UserController::class)->names([
         'index'   => 'user',
