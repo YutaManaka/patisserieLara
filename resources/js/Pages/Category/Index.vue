@@ -55,12 +55,11 @@ export default { name: 'CategoryIndex' }
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout'
+import DataTable from '@/Components/DataTable'
 import { Inertia } from '@inertiajs/inertia'
 import PanelLayout from '@/Components/PanelLayout'
-import WhiteButton from '@/Components/WhiteButton'
-import DataTable from '@/Components/DataTable'
-import { watch } from 'vue'
 import SwitchButton from '@/Components/SwitchButton'
+import WhiteButton from '@/Components/WhiteButton'
 
 const props = defineProps({
   categories: {
@@ -96,8 +95,4 @@ const onCategoryDisabled = async (item) => {
   }))
   window.scroll(0, 0)
 }
-// watch(
-//   () => props.categories.map(({ disabled }) => disabled),
-//   () => { Inertia.get(route('management.table-order.category')) },
-// )
 </script>

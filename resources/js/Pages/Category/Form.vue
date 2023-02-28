@@ -37,15 +37,13 @@
           v-model="form.sort_order"
           :label="categoryLabels.sort_order"
           :error="form.errors.sort_order"
-          class="mt-1 block w-4/12">
+          class="mt-1 block w-3/12">
           <template #help>
             <tooltip
               :styleObject="{ top: '-4px', left: '250px', width: '500px' }">
               <template #content>
                 <p class="m-1">メニュー選択画面で表示するカテゴリ表示順を設定。</p>
                 <p class="m-1">数値が小さいほど先に表示される。</p>
-                <img
-                  src="/images/help/item_sort_order.png">
               </template>
             </tooltip>
           </template>
@@ -88,15 +86,37 @@
     </form-panel-layout>
     <warning-panel-layout
       v-if="!isNew"
-      :showWarningButton="false"
       @click="showConfirmationModal = true">
       <template #title>
         <h3>削除</h3>
       </template>
       <template #body>
-        カテゴリを削除したい場合は保守担当者へご連絡ください。
+        この操作は元に戻すことはできません。
+      </template>
+      <template #button-inner-text>
+        削除
       </template>
     </warning-panel-layout>
+    <confirmation-modal
+      :show="showConfirmationModal">
+      <template #title>
+        アカウント削除
+      </template>
+      <template #content>
+        「{{ form.name }}」を削除してもよろしいですか？
+      </template>
+      <template #footer>
+        <jet-secondary-button
+          class="mr-4"
+          @click="showConfirmationModal = false">
+          キャンセル
+        </jet-secondary-button>
+        <warning-button
+          @click="onDeleteButtonClicked">
+          削除
+        </warning-button>
+      </template>
+    </confirmation-modal>
   </app-layout>
 </template>
 
@@ -106,20 +126,22 @@ export default { name: 'CategoryForm' }
 
 <script setup>
 import {
-  ref, reactive, computed, onMounted,
+  ref, computed, onMounted,
 } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
 import AppLayout from '@/Layouts/AppLayout'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import FormPanelLayout from '@/Components/FormPanelLayout'
+import { Inertia } from '@inertiajs/inertia'
+import InputControl from '@/Components/InputControl'
+import InputTimepicker from '@/Components/InputTimepicker'
 import JetInputError from '@/Components/InputError'
 import JetLabel from '@/Components/Label'
 import JetSecondaryButton from '@/Components/SecondaryButton'
-import InputControl from '@/Components/InputControl'
-import FormPanelLayout from '@/Components/FormPanelLayout'
 import preview from '@/actions/image/preview'
-import WarningPanelLayout from '@/Components/WarningPanelLayout'
-import InputTimepicker from '@/Components/InputTimepicker'
 import Tooltip from '@/Components/Tooltip'
 import { useForm } from '@inertiajs/vue3'
+import WarningButton from '@/Components/WarningButton'
+import WarningPanelLayout from '@/Components/WarningPanelLayout'
 
 const props = defineProps({
   isNew: {
@@ -165,6 +187,10 @@ const onSubmitted = async () => {
 const { filePreview: imagePreview, openFileView, onFileChanged: onImageChanged } = preview(refImage)
 const onReturnClicked = () => {
   Inertia.get(route('category'))
+}
+const onDeleteButtonClicked = async () => {
+  await form.delete(route('category.destroy', { category: props.category.id }))
+  showConfirmationModal.value = false
 }
 
 onMounted(() => {

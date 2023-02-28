@@ -20,7 +20,7 @@
     </slot>
     <div v-show="show">
       <div
-        class="absolute z-10 p-4 -mt-1 w-7/12 text-sm leading-tight text-black transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg bg-gray-100"
+        class="absolute z-10 p-4 -mt-1 w-7/12 text-sm leading-tight text-black transform -translate-x-1/2 -translate-y-full rounded-lg shadow-lg bg-gray-100"
         :style="styleObject">
         <slot name="content" />
       </div>

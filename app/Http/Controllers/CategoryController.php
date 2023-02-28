@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Category\DeleteCategory;
 use App\Actions\Category\GetCategories;
 use App\Actions\Category\StoreCategory;
 use App\Actions\Category\UpdateCategory;
