@@ -72,4 +72,12 @@ class CategoryController extends Controller
 
         return Redirect::route('category')->with('success', '削除しました。');
     }
+
+    public function disabled(Category $category, UpdateCategory $action)
+    {
+        $inputs = ['disabled' => (int) !$category->disabled];
+        $action->execute($category, $inputs);
+
+        return Redirect::route('category');
+    }
 }

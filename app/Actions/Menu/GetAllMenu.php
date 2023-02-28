@@ -17,7 +17,7 @@ class GetAllMenu
             'items' => [
                 // 'transaction' => [
                 //     'name'        => '売上',
-                //     'route'       => 'management.transaction',
+                //     'route'       => 'transaction',
                 //     'permissions' => [
                 //         User::PERMISSION_SYSTEM,
                 //         User::PERMISSION_ADMIN,
@@ -25,7 +25,7 @@ class GetAllMenu
                 // ],
                 'category' => [
                     'name'        => 'カテゴリ',
-                    'route'       => 'management.category',
+                    'route'       => 'category',
                     'permissions' => [
                         User::PERMISSION_SYSTEM,
                         User::PERMISSION_ADMIN,
@@ -33,7 +33,7 @@ class GetAllMenu
                 ],
                 // 'item' => [
                 //     'name'        => '商品',
-                //     'route'       => 'management.item',
+                //     'route'       => 'item',
                 //     'permissions' => [
                 //         User::PERMISSION_SYSTEM,
                 //         User::PERMISSION_ADMIN,
@@ -41,7 +41,7 @@ class GetAllMenu
                 // ],
                 // 'option' => [
                 //     'name'        => 'オプション',
-                //     'route'       => 'management.option',
+                //     'route'       => 'option',
                 //     'permissions' => [
                 //         User::PERMISSION_SYSTEM,
                 //         User::PERMISSION_ADMIN,
@@ -49,7 +49,7 @@ class GetAllMenu
                 // ],
                 // 'receipt' => [
                 //     'name'        => 'レシート',
-                //     'route'       => 'management.receipt',
+                //     'route'       => 'receipt',
                 //     'permissions' => [
                 //         User::PERMISSION_SYSTEM,
                 //         User::PERMISSION_ADMIN,

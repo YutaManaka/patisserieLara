@@ -43,6 +43,10 @@ Route::middleware([
         'update'  => 'category.update',
         'destroy' => 'category.destroy',
     ]);
+    Route::put(
+        '/categories/{category}/disabled',
+        [\App\Http\Controllers\CategoryController::class, 'disabled'],
+    )->name('category.disabled');
 
     // アカウント
     Route::resource('/users', \App\Http\Controllers\UserController::class)->names([

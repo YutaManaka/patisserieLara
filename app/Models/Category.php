@@ -12,6 +12,9 @@ class Category extends Model
     use HasFactory;
 
     public const CATEGORY_LABELS = [
+        'index_title'      => 'カテゴリ一覧',
+        'form_title'       => 'カテゴリ詳細',
+        'name'             => 'カテゴリ名',
         'order_start_time' => '提供開始時間',
         'order_end_time'   => '提供終了時間',
         'sort_order'       => '表示順',
@@ -36,15 +39,15 @@ class Category extends Model
     // }
 
     // TODO: image_urlの取得
-    // public function getImageUrlAttribute()
-    // {
-    //     $url = $this->attributes['image_url'] ?? null;
-    //     if (!$url) {
-    //         return null;
-    //     }
+    public function getImageUrlAttribute()
+    {
+        $url = $this->attributes['image_url'] ?? null;
+        if (!$url) {
+            return null;
+        }
 
-    //     return Str::startsWith($url, 'http')
-    //         ? $url
-    //         : Storage::disk('s3')->url($url);
-    // }
+        return Str::startsWith($url, 'http')
+            ? $url
+            : Storage::disk('s3')->url($url);
+    }
 }
