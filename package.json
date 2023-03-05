@@ -32,5 +32,16 @@
         "@vue/compiler-sfc": "^3.2.47",
         "vue": "^3.2.36",
         "vue3-timepicker": "^1.0.0-beta.2"
+    },
+    "husky": {
+        "hooks": {
+        "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.php": [
+        "vendor/bin/php-cs-fixer fix",
+        "git add"
+        ]
     }
 }
