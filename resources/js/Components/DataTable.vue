@@ -1,67 +1,82 @@
 <template>
   <div
     class="scroll overflow-x-auto"
-    :class="wrapperClass">
+    :class="wrapperClass"
+  >
     <table
       class="w-full table-auto whitespace-nowrap"
-      :class="tableClass">
+      :class="tableClass"
+    >
       <thead>
         <tr
           class="bg-neutral-200 text-neutral-700 leading-normal"
-          :class="trClass">
+          :class="trClass"
+        >
           <th
             v-for="(title, key) in headers"
             :key="`header-${key}`"
             class="py-3 text-center"
-            :class="thClass">
-            <span v-html="title"></span>
+            :class="thClass"
+          >
+            <span v-html="title" />
           </th>
         </tr>
       </thead>
       <tbody
         v-if="!noTenantText && items.length > 0"
-        class="text-neutral-700 text-sm font-light">
+        class="text-neutral-700 text-sm font-light"
+      >
         <tr
           v-for="(item, index) in items"
           :key="item.id"
           :class="tbodyTdClass"
           class="border-b border-gray-200"
-          @click.stop="$emit('row-click', item)">
+          @click.stop="$emit('row-click', item)"
+        >
           <template
             v-for="(title, key) in headers"
-            :key="`row-${key}`">
+            :key="`row-${key}`"
+          >
             <td
               class="text-center whitespace-nowrap"
-              :class="tdClass">
+              :class="tdClass"
+            >
               <slot
                 :name="key"
                 :item="item"
-                :index="index">
-                  {{ item[key] }}
+                :index="index"
+              >
+                {{ item[key] }}
               </slot>
             </td>
           </template>
         </tr>
       </tbody>
       <tbody
-        v-else-if="noTenantText && noDataText">
+        v-else-if="noTenantText && noDataText"
+      >
         <tr
-          class="border-b border-gray-200 hover:bg-gray-100">
+          class="border-b border-gray-200 hover:bg-gray-100"
+        >
           <td
             :colspan="Object.keys(headers).length"
-            class="py-3 px-6 text-center whitespace-nowrap pt-10 pb-10 text-gray-400 font-bold">
-          {{ noTenantText }}
+            class="py-3 px-6 text-center whitespace-nowrap pt-10 pb-10 text-gray-400 font-bold"
+          >
+            {{ noTenantText }}
           </td>
         </tr>
       </tbody>
       <tbody
-        v-else-if="noDataText">
+        v-else-if="noDataText"
+      >
         <tr
-          class="border-b border-gray-200 hover:bg-gray-100">
+          class="border-b border-gray-200 hover:bg-gray-100"
+        >
           <td
             :colspan="Object.keys(headers).length"
-            class="py-3 px-6 text-center whitespace-nowrap pt-10 pb-10 text-gray-400 font-bold">
-          {{ noDataText }}
+            class="py-3 px-6 text-center whitespace-nowrap pt-10 pb-10 text-gray-400 font-bold"
+          >
+            {{ noDataText }}
           </td>
         </tr>
       </tbody>
@@ -70,7 +85,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   headers: {
     type: Object,
     required: true,
@@ -113,7 +128,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['row-click'])
+defineEmits(['row-click'])
 // const completed = item => (
 //   item.transactions?.[0]?.completed_at ? { class: 'bg-gray-300' } : null
 // )

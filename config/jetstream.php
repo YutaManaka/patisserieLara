@@ -4,7 +4,6 @@ use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Middleware\AuthenticateSession;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Jetstream Stack
@@ -77,5 +76,4 @@ return [
     */
 
     'profile_photo_disk' => 'public',
-
 ];

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class GetUsers
 {
-    public function __construct( private FilterUsers $filter)
+    public function __construct(private FilterUsers $filter)
     {
     }
 

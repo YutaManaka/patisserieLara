@@ -26,3 +26,4 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+.php-cs-fixer.cache

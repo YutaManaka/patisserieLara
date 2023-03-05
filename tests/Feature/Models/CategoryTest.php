@@ -18,7 +18,7 @@ class CategoryTest extends TestCase
     public function testFillable()
     {
         $attributes = [
-            'name'             => 'テスト',
+            'name' => 'テスト',
             // 'image_url'        => 'https://example.png',
             'order_start_time' => '00:00',
             'order_end_time'   => '10:00',
@@ -35,7 +35,7 @@ class CategoryTest extends TestCase
     public function testCreate()
     {
         $attributes = [
-            'name'             => 'テスト2',
+            'name' => 'テスト2',
             // 'image_url'        => 'https://example.png',
             'order_start_time' => '00:00',
             'order_end_time'   => '10:00',
@@ -50,7 +50,7 @@ class CategoryTest extends TestCase
     public function testDelete()
     {
         $attributes = [
-            'name'             => 'テスト3',
+            'name' => 'テスト3',
             // 'image_url'        => 'https://example4.png',
             'order_start_time' => '00:00',
             'order_end_time'   => '10:00',

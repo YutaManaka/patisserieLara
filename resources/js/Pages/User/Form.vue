@@ -5,14 +5,16 @@
       :form="form"
       :title="userLabels.form_title"
       @back="onReturnClicked"
-      @submit="onSubmitted">
+      @submit="onSubmitted"
+    >
       <div class="col-span-6">
         <input-control
           id="name"
           v-model="form.name"
           :label="userLabels.name"
           :error="form.errors?.name"
-          class="mt-1 block w-7/12" />
+          class="mt-1 block w-7/12"
+        />
       </div>
       <div class="col-span-6">
         <input-control
@@ -20,7 +22,8 @@
           v-model="form.email"
           :label="userLabels.email"
           :error="form.errors?.email"
-          class="mt-1 block w-7/12" />
+          class="mt-1 block w-7/12"
+        />
       </div>
       <div class="col-span-6">
         <select-control
@@ -28,32 +31,37 @@
           :label="userLabels.permission"
           :error="form.errors.permission"
           :options="permissions"
-          class="mt-1 ">
-        </select-control>
+          class="mt-1 "
+        />
       </div>
       <label
         v-if="!isNew"
-        class="flex items-center mt-5 mb-5">
+        class="flex items-center mt-5 mb-5"
+      >
         <jet-checkbox
           v-model:checked="form.change_password"
-          name="remember" />
+          name="remember"
+        />
         <span class="ml-2 text-sm text-gray-600">パスワードを変更する</span>
       </label>
       <div
         v-if="form.change_password || isNew"
-        class="col-span-6">
+        class="col-span-6"
+      >
         <input-control
           id="new_password"
-          type="text"
           v-model="form.new_password"
+          type="text"
           :label="isNew ? 'パスワード' : '新しいパスワード'"
           :error="form.errors?.new_password"
-          class="mt-1 block w-7/12" />
+          class="mt-1 block w-7/12"
+        />
       </div>
     </form-panel-layout>
     <warning-panel-layout
       v-if="!isNew"
-      @click="showConfirmationModal = true">
+      @click="showConfirmationModal = true"
+    >
       <template #title>
         <h3>削除</h3>
       </template>
@@ -65,7 +73,8 @@
       </template>
     </warning-panel-layout>
     <confirmation-modal
-      :show="showConfirmationModal">
+      :show="showConfirmationModal"
+    >
       <template #title>
         アカウント削除
       </template>
@@ -75,11 +84,13 @@
       <template #footer>
         <jet-secondary-button
           class="mr-4"
-          @click="showConfirmationModal = false">
+          @click="showConfirmationModal = false"
+        >
           キャンセル
         </jet-secondary-button>
         <warning-button
-          @click="onDeleteButtonClicked">
+          @click="onDeleteButtonClicked"
+        >
           削除
         </warning-button>
       </template>

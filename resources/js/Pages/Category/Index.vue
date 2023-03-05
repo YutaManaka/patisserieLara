@@ -2,13 +2,15 @@
   <app-layout>
     <panel-layout :title="categoryLabels.index_title">
       <div
-        class="bg-white overflow-hidden shadow-xl">
+        class="bg-white overflow-hidden shadow-xl"
+      >
         <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full lg:w-5/6 px-2 lg:px-0">
             <div class="flex-none text-right pt-6">
               <div>
                 <white-button
-                  @click="onCreateClicked">
+                  @click="onCreateClicked"
+                >
                   カテゴリ新規作成
                 </white-button>
               </div>
@@ -18,25 +20,29 @@
                 :headers="headers"
                 :items="categories.data"
                 no-data-text="カテゴリはありません"
-                @row-click="onRowClicked">
+                @row-click="onRowClicked"
+              >
                 <template #image_url="slotProps">
                   <td class="py-3 px-6 md:p-0 text-center whitespace-nowrap">
                     <img
                       :src="slotProps.item.image_url"
                       class="mx-auto shadow-lg rounded max-w-full h-auto align-middle border-none"
-                      style="width:120px">
+                      style="width:120px"
+                    >
                   </td>
                 </template>
                 <template #disabled="{ item }">
                   <div class="flex justify-center items-center mt-8">
                     <switch-button
                       v-model="item.disabled"
-                      isColorChanged
-                      @change="onCategoryDisabled(item)" />
+                      is-color-changed
+                      @change="onCategoryDisabled(item)"
+                    />
                   </div>
                   <div
                     class="text-center font-bold"
-                    :class="{ 'text-red-600': item.disabled, 'text-green-600': !item.disabled }">
+                    :class="{ 'text-red-600': item.disabled, 'text-green-600': !item.disabled }"
+                  >
                     {{ item.disabled ? '非表示': '表示中' }}
                   </div>
                 </template>

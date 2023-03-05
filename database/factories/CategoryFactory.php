@@ -12,12 +12,12 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name'                    => $this->faker->word,
-            'img_url'                 => null,
-            'order_start_time'        => '00:00',
-            'order_end_time'          => '23:59',
-            'sort_order'              => 1,
-            'disabled'                => 0,
+            'name'             => $this->faker->word,
+            'img_url'          => null,
+            'order_start_time' => '00:00',
+            'order_end_time'   => '23:59',
+            'sort_order'       => 1,
+            'disabled'         => 0,
         ];
     }
 }

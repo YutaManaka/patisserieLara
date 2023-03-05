@@ -5,13 +5,16 @@
         <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full lg:w-5/6 px-2 lg:px-0">
             <div class="text-right pt-6">
-              <white-button @click="onCreateClicked">アカウント新規作成</white-button>
+              <white-button @click="onCreateClicked">
+                アカウント新規作成
+              </white-button>
             </div>
             <div class="bg-white shadow-md rounded my-6">
               <data-table
                 :headers="headers"
                 :items="users.data"
-                @row-click="onRowClicked">
+                @row-click="onRowClicked"
+              >
                 <template #permission="{ item }">
                   {{ switchPermissionName(item.permission) }}
                 </template>
@@ -22,7 +25,8 @@
                 :paginate="users"
                 @page-previous="onPaginationChanged"
                 @page-next="onPaginationChanged"
-                @page-click="onPaginationChanged" />
+                @page-click="onPaginationChanged"
+              />
             </div>
           </div>
         </div>

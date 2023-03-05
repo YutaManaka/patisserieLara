@@ -1,17 +1,19 @@
 <template>
   <div class="w-full">
     <div
-      class="flex relative">
+      class="flex relative"
+    >
       <label
         :for="id"
         class="mb-1 block font-medium text-sm text-gray-700"
-        :class="{ 'text-red-600': !!error }">
+        :class="{ 'text-red-600': !!error }"
+      >
         {{ label }}
       </label>
-      <slot name="help"></slot>
+      <slot name="help" />
     </div>
     <vue-timepicker
-      :modelValue="modelValue"
+      :model-value="modelValue"
       input-width="100px"
       :input-class="['rounded-md', {'bg-red-50': !!error, 'invalid': !!error }]"
       placeholder="00:00"
@@ -23,7 +25,8 @@
       manual-input
       advanced-keyboard
       :minute-interval="minuteInterval"
-      @change="updateValue($event)" />
+      @change="updateValue($event)"
+    />
     <p class="text-sm text-red-600">
       {{ error }}
     </p>
@@ -34,7 +37,7 @@
 import VueTimepicker from 'vue3-timepicker'
 import 'vue3-timepicker/dist/VueTimepicker.css'
 
-const props = defineProps({
+defineProps({
   modelValue: {
     type: [Number, String],
     required: false,

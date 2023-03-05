@@ -18,23 +18,23 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
     // 権限
-    public const PERMISSION_ROOT     = 99;
-    public const PERMISSION_SYSTEM   = 80;
-    public const PERMISSION_ADMIN    = 70;
+    public const PERMISSION_ROOT   = 99;
+    public const PERMISSION_SYSTEM = 80;
+    public const PERMISSION_ADMIN  = 70;
 
     // 権限名
     public const PERMISSION_NAMES = [
-        self::PERMISSION_ROOT                      => 'root',
-        self::PERMISSION_SYSTEM                    => 'システム',
-        self::PERMISSION_ADMIN                     => 'Admin',
+        self::PERMISSION_ROOT   => 'root',
+        self::PERMISSION_SYSTEM => 'システム',
+        self::PERMISSION_ADMIN  => 'Admin',
     ];
 
     public const USER_LABELS = [
-        'index_title'            => 'アカウント一覧',
-        'form_title'             => 'アカウント設定',
-        'name'                   => 'ユーザ名',
-        'email'                  => 'ログインID',
-        'permission'             => '権限',
+        'index_title' => 'アカウント一覧',
+        'form_title'  => 'アカウント設定',
+        'name'        => 'ユーザ名',
+        'email'       => 'ログインID',
+        'permission'  => '権限',
     ];
 
     /**

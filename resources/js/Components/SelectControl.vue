@@ -4,7 +4,8 @@
       <label
         :for="id"
         class="block font-medium text-sm text-neutral-700"
-        :class="{ 'text-red-600': !!error }">
+        :class="{ 'text-red-600': !!error }"
+      >
         {{ label }}
       </label>
       <slot name="help" />
@@ -16,15 +17,17 @@
         v-model="value"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
         :class="{ 'bg-red-50': !!error, 'border-red-600': !!error, 'bg-gray-200' : $attrs.disabled }"
-        v-bind="$attrs">
+        v-bind="$attrs"
+      >
         <!-- optionsが連想配列かどうかを判定 -->
         <template v-if="typeof options[0] === 'object'">
-        {{ options[0].value }}
+          {{ options[0].value }}
           <option
             v-for="(option,key) in options"
             :key="key"
             :value="option.name"
-            :selected="option.value === modelValue">
+            :selected="option.value === modelValue"
+          >
             {{ option.name }}
           </option>
         </template>
@@ -33,7 +36,8 @@
             v-for="(option,key) in options"
             :key="key"
             :value="key"
-            :selected="option === modelValue">
+            :selected="option === modelValue"
+          >
             {{ option }}
           </option>
         </template>
