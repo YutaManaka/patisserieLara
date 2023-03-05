@@ -24,10 +24,10 @@ class UserTest extends TestCase
 
         collect(collect($attributes))
             ->filter(fn ($val, $key) => $key !== 'password')
-            ->each(fn ($val, $key) => $this->assertEquals($val, $user->$key));
+            ->each(fn ($val, $key) => $this->assertSame($val, $user->$key));
     }
 
-    public function testDeletion()
+    public function testDelete()
     {
         $user = User::factory()->create();
 
