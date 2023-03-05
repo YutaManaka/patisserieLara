@@ -2,15 +2,17 @@
   <div class="mx-auto pt-20 pb-10 px-8">
     <div
       class="bg-neutral-700 text-gray-50 font-bold text-2xl py-3 px-3 flex"
-      :class="h1Hidden">
+      :class="h1Hidden"
+    >
       <h1>{{ title }}</h1>
-      <slot name="help"></slot>
+      <slot name="help" />
     </div>
-    <slot></slot>
+    <slot />
     <div
       v-if="$slots.action"
-      class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right shadow">
-      <slot name="action"></slot>
+      class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right shadow"
+    >
+      <slot name="action" />
     </div>
   </div>
 </template>

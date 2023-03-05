@@ -1,10 +1,13 @@
 <template>
   <div v-if="hasErrors">
-    <div class="font-medium text-red-600">入力値にエラーがあります</div>
+    <div class="font-medium text-red-600">
+      入力値にエラーがあります
+    </div>
     <ul class="mt-3 list-disc list-inside text-sm text-red-600">
       <li
         v-for="(error, key) in errors"
-        :key="key">
+        :key="key"
+      >
         {{ error }}
       </li>
     </ul>

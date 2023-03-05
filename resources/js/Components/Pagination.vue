@@ -1,11 +1,13 @@
 <template>
   <ul
     v-if="paginate.last_page > 1"
-    class="flex justify-center pl-0 list-none rounded my-2">
+    class="flex justify-center pl-0 list-none rounded my-2"
+  >
     <li
       :class="{ 'bg-gray-200 pointer-events-none': paginate.current_page === 1, 'cursor-pointer' : paginate.current_page !== 1 }"
       class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-gray-200"
-      @click="$emit('page-previous', paginate.current_page - 1)">
+      @click="$emit('page-previous', paginate.current_page - 1)"
+    >
       <span class="page-link">前へ</span>
     </li>
     <li
@@ -13,12 +15,14 @@
       :key="index"
       :class="{'bg-blue-500 text-white' : page === paginate.current_page , 'text-blue-700 hover:bg-gray-200' : page !== paginate.current_page }"
       class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 cursor-pointer"
-      @click="$emit('page-click', page)">
+      @click="$emit('page-click', page)"
+    >
       <span class="page-link">{{ page }}</span>
     </li>
     <li
       v-show="frontDot"
-      class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 disabled">
+      class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 disabled"
+    >
       ...
     </li>
     <li
@@ -26,12 +30,14 @@
       :key="index"
       :class="{'bg-blue-500 text-white' : page === paginate.current_page , 'text-blue-700 hover:bg-gray-200' : page !== paginate.current_page }"
       class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 cursor-pointer"
-      @click="$emit('page-click', page)">
+      @click="$emit('page-click', page)"
+    >
       <span class="page-link">{{ page }}</span>
     </li>
     <li
       v-show="endDot"
-      class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 disabled">
+      class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 disabled"
+    >
       ...
     </li>
     <li
@@ -39,13 +45,15 @@
       :key="index"
       :class="{'bg-blue-500 text-white' : page === paginate.current_page , 'text-blue-700 hover:bg-gray-200' : page !== paginate.current_page }"
       class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 border-r-0 cursor-pointer"
-      @click="$emit('page-click', page)">
+      @click="$emit('page-click', page)"
+    >
       <span class="page-link">{{ page }}</span>
     </li>
     <li
       :class="{ 'bg-gray-200 pointer-events-none': paginate.current_page >= paginate.last_page, 'cursor-pointer' : paginate.current_page < paginate.last_page }"
       class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-blue-700 rounded-r hover:bg-gray-200"
-      @click="$emit('page-next', paginate.current_page + 1)">
+      @click="$emit('page-next', paginate.current_page + 1)"
+    >
       <span class="page-link">次へ</span>
     </li>
   </ul>

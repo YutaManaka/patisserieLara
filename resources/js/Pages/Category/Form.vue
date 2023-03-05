@@ -4,14 +4,16 @@
       :form="form"
       :title="categoryLabels.form_title"
       @back="onReturnClicked"
-      @submit="onSubmitted">
+      @submit="onSubmitted"
+    >
       <div class="col-span-6">
         <input-control
           id="name"
           v-model="form.name"
           :label="categoryLabels.name"
           :error="form.errors.name"
-          class="mt-1 block w-7/12" />
+          class="mt-1 block w-7/12"
+        />
       </div>
       <div class="col-span-6 mt-6 flex flex-row">
         <div>
@@ -20,7 +22,8 @@
             v-model="form.order_start_time"
             :label="categoryLabels.order_start_time"
             :error="form.errors.order_start_time"
-            placeholder="00:00" />
+            placeholder="00:00"
+          />
         </div>
         <div class="ml-10">
           <input-timepicker
@@ -28,7 +31,8 @@
             v-model="form.order_end_time"
             :label="categoryLabels.order_end_time"
             :error="form.errors.order_end_time"
-            placeholder="23:59" />
+            placeholder="23:59"
+          />
         </div>
       </div>
       <div class="col-span-2 mt-4">
@@ -37,13 +41,19 @@
           v-model="form.sort_order"
           :label="categoryLabels.sort_order"
           :error="form.errors.sort_order"
-          class="mt-1 block w-3/12">
+          class="mt-1 block w-3/12"
+        >
           <template #help>
             <tooltip
-              :styleObject="{ top: '-4px', left: '250px', width: '500px' }">
+              :style-object="{ top: '-4px', left: '250px', width: '500px' }"
+            >
               <template #content>
-                <p class="m-1">メニュー選択画面で表示するカテゴリ表示順を設定。</p>
-                <p class="m-1">数値が小さいほど先に表示される。</p>
+                <p class="m-1">
+                  メニュー選択画面で表示するカテゴリ表示順を設定。
+                </p>
+                <p class="m-1">
+                  数値が小さいほど先に表示される。
+                </p>
               </template>
             </tooltip>
           </template>
@@ -55,13 +65,16 @@
           type="file"
           accept=".jpeg, .jpg, .png"
           class="hidden"
-          @change="onImageChanged">
+          @change="onImageChanged"
+        >
         <div class="flex relative">
           <jet-label
             for="photo"
-            :value="categoryLabels.img_url" />
+            :value="categoryLabels.img_url"
+          />
           <tooltip
-            :styleObject="{ top: '-4px', left: '150px', width: '300px' }">
+            :style-object="{ top: '-4px', left: '150px', width: '300px' }"
+          >
             <template #content>
               <p>画像の拡張子はjpeg、jpg、pngが可能。</p>
             </template>
@@ -71,22 +84,26 @@
           <img
             :src="imagePreview ?? imageUrl"
             :alt="category?.name"
-            class="h-30 w-40 object-cover">
+            class="h-30 w-40 object-cover"
+          >
         </div>
         <jet-secondary-button
           class="mt-2 mr-2"
           type="button"
-          @click.prevent="openFileView">
+          @click.prevent="openFileView"
+        >
           画像追加
         </jet-secondary-button>
         <jet-input-error
           :message="form.errors.image"
-          class="mt-2" />
+          class="mt-2"
+        />
       </div>
     </form-panel-layout>
     <warning-panel-layout
       v-if="!isNew"
-      @click="showConfirmationModal = true">
+      @click="showConfirmationModal = true"
+    >
       <template #title>
         <h3>削除</h3>
       </template>
@@ -98,7 +115,8 @@
       </template>
     </warning-panel-layout>
     <confirmation-modal
-      :show="showConfirmationModal">
+      :show="showConfirmationModal"
+    >
       <template #title>
         アカウント削除
       </template>
@@ -108,11 +126,13 @@
       <template #footer>
         <jet-secondary-button
           class="mr-4"
-          @click="showConfirmationModal = false">
+          @click="showConfirmationModal = false"
+        >
           キャンセル
         </jet-secondary-button>
         <warning-button
-          @click="onDeleteButtonClicked">
+          @click="onDeleteButtonClicked"
+        >
           削除
         </warning-button>
       </template>
