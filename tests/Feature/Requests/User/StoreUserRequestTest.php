@@ -17,11 +17,11 @@ class StoreUserRequestTest extends ValidationTestCase
     protected function baseInput(): array
     {
         return [
-            'name'                => 'taro_yamada',
-            'email'               => 'taro_yamada',
-            'permission'          => 80,
-            'change_password'     => true,
-            'new_password'        => 'aaaaaa',
+            'name'            => 'taro_yamada',
+            'email'           => 'taro_yamada',
+            'permission'      => 80,
+            'change_password' => true,
+            'new_password'    => 'aaaaaa',
         ];
     }
 
