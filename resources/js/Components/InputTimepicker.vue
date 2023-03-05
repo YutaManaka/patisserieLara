@@ -37,7 +37,7 @@
 import VueTimepicker from 'vue3-timepicker'
 import 'vue3-timepicker/dist/VueTimepicker.css'
 
-const props = defineProps({
+defineProps({
   modelValue: {
     type: [Number, String],
     required: false,

@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   type: {
     type: String,
     default: 'submit',

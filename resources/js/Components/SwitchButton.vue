@@ -29,7 +29,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['change'])
+defineEmits(['change'])
 
 const activeColor = computed(() => (props.isColorChanged ? !props.modelValue : props.modelValue))
 const inactiveColor = computed(() => (props.isColorChanged ? props.modelValue : !props.modelValue))

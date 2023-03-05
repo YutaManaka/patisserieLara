@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   headers: {
     type: Object,
     required: true,
@@ -128,7 +128,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['row-click'])
+defineEmits(['row-click'])
 // const completed = item => (
 //   item.transactions?.[0]?.completed_at ? { class: 'bg-gray-300' } : null
 // )

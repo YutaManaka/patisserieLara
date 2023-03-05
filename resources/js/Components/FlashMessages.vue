@@ -44,7 +44,12 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-const props = defineProps(['on'])
+const props = defineProps({
+  on: {
+    type: Object,
+    default: () => {}
+  }
+})
 
 const show = ref(false)
 watch(

@@ -3,7 +3,10 @@ import { Head } from '@inertiajs/vue3';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
 
 defineProps({
-    policy: String,
+    policy: {
+      type: String,
+      default: ''
+    }
 });
 </script>
 

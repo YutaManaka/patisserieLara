@@ -8,8 +8,14 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 const props = defineProps({
-    email: String,
-    token: String,
+    email: {
+      type: String,
+      default: ''
+    },
+    token: {
+      type: String,
+      default: ''
+    },
 });
 
 const form = useForm({

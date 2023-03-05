@@ -35,7 +35,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const props = defineProps({
+defineProps({
   styleObject: {
     type: Object,
     required: true,

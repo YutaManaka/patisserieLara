@@ -77,7 +77,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['page-click', 'page-next', 'page-previous'])
+defineEmits(['page-click', 'page-next', 'page-previous'])
 
 const paginateDefaultSize = ref(6)
 const frontDot = ref(false)

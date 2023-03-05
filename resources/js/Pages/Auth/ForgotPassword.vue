@@ -8,7 +8,10 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
 defineProps({
-    status: String,
+    status: {
+      type: String,
+      default: ''
+    },
 });
 
 const form = useForm({

@@ -33,12 +33,12 @@
 <script setup>
 import WarningButton from '@/Components/WarningButton'
 
-const props = defineProps({
+defineProps({
   showWarningButton: {
     type: Boolean,
     default: true,
   },
 })
 
-const emit = defineEmits(['click'])
+defineEmits(['click'])
 </script>

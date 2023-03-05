@@ -58,7 +58,7 @@ import JetActionMessage from '@/Components/ActionMessage'
 import JetButton from '@/Components/Button'
 import JetSecondaryButton from '@/Components/SecondaryButton'
 
-const props = defineProps({
+defineProps({
   isNew: {
     type: Boolean,
     default: false,
@@ -73,5 +73,5 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['submit', 'back'])
+defineEmits(['submit', 'back'])
 </script>

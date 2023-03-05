@@ -33,9 +33,7 @@
                   >
                     <jet-dropdown>
                       <template #trigger>
-                        <span
-                          class="inline-flex rounded-md"
-                        >
+                        <span class="inline-flex rounded-md">
                           <button
                             type="button"
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:text-neutral-900 focus:outline-none transition ease-in-out duration-150"
@@ -79,9 +77,7 @@
                   width="48"
                 >
                   <template #trigger>
-                    <span
-                      class="inline-flex rounded-md"
-                    >
+                    <span class="inline-flex rounded-md">
                       <button
                         type="button"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:text-neutral-900 focus:outline-none transition ease-in-out duration-150"
@@ -119,69 +115,71 @@
 
       <!-- Page Content -->
       <main>
-        <flash-messages
-          :on="$page.props.flash"
-        />
+        <flash-messages :on="$page.props.flash" />
         <slot />
       </main>
     </div>
   </div>
 </template>
 
-  <script setup>
-  import { ref, onMounted } from 'vue'
-  import { Inertia } from '@inertiajs/inertia'
-  import JetBanner from '@/Components/Banner'
-  import JetDropdown from '@/Components/Dropdown'
-  import JetDropdownLink from '@/Components/DropdownLink'
-  import JetNavLink from '@/Components/NavLink'
-  import FlashMessages from '@/Components/FlashMessages'
+<script setup>
+import { ref, onMounted } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+import JetBanner from "@/Components/Banner";
+import JetDropdown from "@/Components/Dropdown";
+import JetDropdownLink from "@/Components/DropdownLink";
+import JetNavLink from "@/Components/NavLink";
+import FlashMessages from "@/Components/FlashMessages";
 
-  const props = defineProps({
-    cashRegisterValue: {
-      type: Number,
-      default: null,
+defineProps({
+  cashRegisterValue: {
+    type: Number,
+    default: null,
+  },
+  isWebView: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  isTransactionView: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+});
+
+const logout = () => Inertia.post(route("logout"));
+
+onMounted(() => {
+  const logoClickCount = ref(0);
+  const timer = ref(null);
+  const timeout = 2000;
+  const headerLogo = document.getElementById("headerLogo");
+
+  // ロゴのクリック回数によって動作を分岐
+  headerLogo.addEventListener("click", () => {
+    logoClickCount.value += 1;
+    if (logoClickCount.value === 1) {
+      timer.value = setTimeout(() => {
+        if (logoClickCount.value >= 5) {
+          window.webkit?.messageHandlers.googoTerminalReset.postMessage("");
+        }
+        if (logoClickCount.value === 1) {
+          Inertia.get(route("dashboard"));
+        }
+        timer.value = null;
+        logoClickCount.value = 0;
+      }, timeout);
+    }
+  });
+
+  // WebView時の拡大禁止
+  document.addEventListener(
+    "dblclick",
+    (e) => {
+      e.preventDefault();
     },
-    isWebView: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    isTransactionView: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  })
-
-  const logout = () => Inertia.post(route('logout'))
-
-  onMounted(() => {
-    const logoClickCount = ref(0)
-    const timer = ref(null)
-    const timeout = 2000
-    const headerLogo = document.getElementById('headerLogo')
-
-    // ロゴのクリック回数によって動作を分岐
-    headerLogo.addEventListener('click', () => {
-      logoClickCount.value += 1
-      if (logoClickCount.value === 1) {
-        timer.value = setTimeout(() => {
-          if (logoClickCount.value >= 5) {
-            window.webkit?.messageHandlers.googoTerminalReset.postMessage('')
-          }
-          if (logoClickCount.value === 1) {
-            Inertia.get(route('dashboard'))
-          }
-          timer.value = null
-          logoClickCount.value = 0
-        }, timeout)
-      }
-    })
-
-    // WebView時の拡大禁止
-    document.addEventListener('dblclick', (e) => {
-      e.preventDefault()
-    }, { passive: false })
-  })
-  </script>
+    { passive: false }
+  );
+});
+</script>
