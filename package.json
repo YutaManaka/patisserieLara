@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "lint": "eslint ./resources/js/* --ext .js,.vue --fix"
+        "lint": "eslint ./resources/js/* --ext .js,.vue --fix",
+        "php-cs-fixer": "./vendor/bin/sail composer lint"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
@@ -32,16 +33,5 @@
         "@vue/compiler-sfc": "^3.2.47",
         "vue": "^3.2.36",
         "vue3-timepicker": "^1.0.0-beta.2"
-    },
-    "husky": {
-        "hooks": {
-        "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.php": [
-        "vendor/bin/php-cs-fixer fix",
-        "git add"
-        ]
     }
 }
