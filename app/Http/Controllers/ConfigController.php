@@ -18,9 +18,8 @@ class ConfigController extends Controller
     public function __construct()
     {
         Inertia::share([
-            // 'permission'   => User::PERMISSION_,
-            // 'ConfigLabels' => Config::_CONFIG_LABELS,
-            'userPermission' => auth()->user()->permission,
+            'permissionSystem' => User::PERMISSION_SYSTEM,
+            'configLabels'     => Config::CONFIG_LABELS,
         ]);
     }
 
@@ -29,7 +28,8 @@ class ConfigController extends Controller
         return Inertia::render(
             'Config/Index',
             [
-                'configs' => $action->execute(request()->all())->paginate(),
+                'configs'        => $action->execute(request()->all())->paginate(),
+                'userPermission' => auth()->user()->permission,
             ]
         );
     }
@@ -39,7 +39,8 @@ class ConfigController extends Controller
         return Inertia::render(
             'Config/Form',
             [
-                'isNew' => true,
+                'isNew'          => true,
+                'userPermission' => auth()->user()->permission,
             ]
         );
     }
