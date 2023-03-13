@@ -1,49 +1,44 @@
 <script>
-export default { name: 'UserIndex' }
+export default { name: 'ConfigIndex' }
 </script>
 
 <script setup>
-
 import { Inertia } from '@inertiajs/inertia'
 import AppLayout from '@/Layouts/AppLayout'
-import DataTable from '@/Components/DataTable'
-import Pagination from '@/Components/Pagination'
 import PanelLayout from '@/Components/PanelLayout'
 import WhiteButton from '@/Components/WhiteButton'
+import DataTable from '@/Components/DataTable'
+import Pagination from '@/Components/Pagination'
 
 const props = defineProps({
-  users: {
+  configs: {
     type: Object,
     required: true,
   },
-  userLabels: {
-    type: Object,
+  userPermission: {
+    type: Number,
     required: true,
   },
-  permissions: {
+  configLabels: {
     type: Object,
     required: true,
   },
 })
 
 const headers = {
-  name: props.userLabels.name,
-  email: props.userLabels.email,
-  permission: props.userLabels.permission,
+  description: props.configLabels.description,
+  value: props.configLabels.value,
 }
-const switchPermissionName = (permission) => {
-    return props.permissions[permission]
-}
-const onRowClicked = (user) => {
-  Inertia.get(route('user.show', {
-    user: user.id,
+const onRowClicked = (config) => {
+  Inertia.get(route('config.show', {
+    config: config.key,
   }))
 }
 const onCreateClicked = () => {
-  Inertia.get(route('user.create'))
+  Inertia.get(route('config.create'))
 }
-const onPaginationChanged = (page) => {
-  Inertia.get(route('user', {
+const onPaginationChanged  = (page) => {
+  Inertia.get(route('config', {
     page,
   }))
 }
@@ -51,29 +46,24 @@ const onPaginationChanged = (page) => {
 
 <template>
   <app-layout>
-    <panel-layout :title="userLabels.index_title">
+    <panel-layout
+      :title="configLabels.title">
       <div class="bg-white overflow-hidden shadow-xl">
         <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full lg:w-5/6 px-2 lg:px-0">
             <div class="text-right pt-6">
-              <white-button @click="onCreateClicked">
-                アカウント新規作成
-              </white-button>
+              <white-button @click="onCreateClicked">新規登録</white-button>
             </div>
             <div class="bg-white shadow-md rounded my-6">
               <data-table
                 :headers="headers"
-                :items="users.data"
+                :items="configs.data"
                 @row-click="onRowClicked"
-              >
-                <template #permission="{ item }">
-                  {{ switchPermissionName(item.permission) }}
-                </template>
-              </data-table>
+              />
             </div>
             <div class="mb-5">
               <pagination
-                :paginate="users"
+                :paginate="configs"
                 @page-previous="onPaginationChanged"
                 @page-next="onPaginationChanged"
                 @page-click="onPaginationChanged"

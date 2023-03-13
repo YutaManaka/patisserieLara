@@ -67,14 +67,14 @@ class GetAllMenu
                         User::PERMISSION_SYSTEM,
                     ],
                 ],
-                // 'system-config' => [
-                //     'name'        => '各種設定',
-                //     'route'       => 'system-config',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
+                'config' => [
+                    'name'        => '各種設定',
+                    'route'       => 'config',
+                    'permissions' => [
+                        User::PERMISSION_SYSTEM,
+                        User::PERMISSION_ADMIN,
+                    ],
+                ],
             ],
         ],
     ];
