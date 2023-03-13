@@ -29,7 +29,7 @@ class ConfigController extends Controller
         return Inertia::render(
             'Config/Index',
             [
-                'configs'        => $action->execute(request()->all())->paginate(),
+                'configs' => $action->execute(request()->all())->paginate(),
             ]
         );
     }
@@ -39,7 +39,7 @@ class ConfigController extends Controller
         return Inertia::render(
             'Config/Form',
             [
-                'isNew'          => true,
+                'isNew' => true,
             ]
         );
     }

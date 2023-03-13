@@ -58,7 +58,7 @@ Route::middleware([
         'destroy' => 'user.destroy',
     ]);
 
-    //各種設定
+    // 各種設定
     Route::resource('/configs', \App\Http\Controllers\ConfigController::class)->names([
         'index'   => 'config',
         'create'  => 'config.create',

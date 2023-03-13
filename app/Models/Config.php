@@ -12,11 +12,11 @@ class Config extends Model
     use SoftDeletes;
 
     public const CONFIG_LABELS = [
-        'title'                => '各種設定',
-        'description'          => '項目名',
-        'value'                => '値',
-        'key'                  => 'キー',
-        'type'                 => 'データ型',
+        'title'       => '各種設定',
+        'description' => '項目名',
+        'value'       => '値',
+        'key'         => 'キー',
+        'type'        => 'データ型',
     ];
 
     protected $primaryKey = 'key';
