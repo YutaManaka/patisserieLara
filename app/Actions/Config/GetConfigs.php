@@ -10,7 +10,7 @@ class GetConfigs
     {
     }
 
-    public function execute(array $params = [], string $sort = 'key', string $order = 'desc'): Builder
+    public function execute(array $params = [], string $sort = 'description', string $order = 'asc'): Builder
     {
         return $this->filter
             ->execute($params)

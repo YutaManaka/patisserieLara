@@ -16,8 +16,10 @@ class StoreConfigRequest extends FormRequest
     public function attributes()
     {
         return [
-            'key'   => 'キー',
-            'value' => '値',
+            'key'         => 'キー',
+            'type'        => 'データ型',
+            'value'       => '値',
+            'description' => '項目名',
         ];
     }
 
@@ -29,6 +31,7 @@ class StoreConfigRequest extends FormRequest
                 'max:64',
                 Rule::unique(Config::class)->ignore($this->key, 'key'),
             ],
+            'type'        => ['required'],
             'value'       => ['required'],
             'description' => ['required', 'max:64'],
         ];
