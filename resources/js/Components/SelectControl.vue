@@ -25,7 +25,7 @@
           <option
             v-for="(option,key) in options"
             :key="key"
-            :value="option.name"
+            :value="option.value"
             :selected="option.value === modelValue"
           >
             {{ option.name }}

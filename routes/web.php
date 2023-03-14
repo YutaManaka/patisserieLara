@@ -57,4 +57,14 @@ Route::middleware([
         'update'  => 'user.update',
         'destroy' => 'user.destroy',
     ]);
+
+    // 各種設定
+    Route::resource('/configs', \App\Http\Controllers\ConfigController::class)->names([
+        'index'   => 'config',
+        'create'  => 'config.create',
+        'store'   => 'config.store',
+        'show'    => 'config.show',
+        'update'  => 'config.update',
+        'destroy' => 'config.destroy',
+    ]);
 });
