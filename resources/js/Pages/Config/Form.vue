@@ -96,7 +96,8 @@ onMounted(() => {
       :form="form"
       :title="configLabels.title"
       @back="onReturnClicked"
-      @submit="onSubmitted">
+      @submit="onSubmitted"
+    >
       <div class="col-span-6">
         <input-control
           v-if="isSystemOrRoot"
@@ -152,7 +153,8 @@ onMounted(() => {
     </form-panel-layout>
     <warning-panel-layout
       v-if="props.config"
-      @click="showConfirmationModal = true">
+      @click="showConfirmationModal = true"
+    >
       <template #title>
         <h3>削除</h3>
       </template>
@@ -164,7 +166,8 @@ onMounted(() => {
       </template>
     </warning-panel-layout>
     <confirmation-modal
-      :show="showConfirmationModal">
+      :show="showConfirmationModal"
+    >
       <template #title>
         設定値削除
       </template>
@@ -174,11 +177,13 @@ onMounted(() => {
       <template #footer>
         <jet-secondary-button
           class="mr-4"
-          @click="showConfirmationModal = false">
+          @click="showConfirmationModal = false"
+        >
           キャンセル
         </jet-secondary-button>
         <warning-button
-          @click="onDeleteButtonClicked">
+          @click="onDeleteButtonClicked"
+        >
           削除
         </warning-button>
       </template>

@@ -14,6 +14,7 @@ class StoreConfig
                 break;
             case 'string':
             case 'url':
+            case 'time':
                 $attributes['value'] = (string) $attributes['value'];
                 break;
         }

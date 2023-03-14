@@ -47,12 +47,15 @@ const onPaginationChanged  = (page) => {
 <template>
   <app-layout>
     <panel-layout
-      :title="configLabels.title">
+      :title="configLabels.title"
+    >
       <div class="bg-white overflow-hidden shadow-xl">
         <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full lg:w-5/6 px-2 lg:px-0">
             <div class="text-right pt-6">
-              <white-button @click="onCreateClicked">新規登録</white-button>
+              <white-button @click="onCreateClicked">
+                新規登録
+              </white-button>
             </div>
             <div class="bg-white shadow-md rounded my-6">
               <data-table

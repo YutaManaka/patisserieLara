@@ -12,7 +12,7 @@ return new class() extends Migration {
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->string('key')->primary();
-            $table->enum('type', ['string', 'int', 'url', 'password', 'array', 'object', 'json', 'binary']);
+            $table->enum('type', ['string', 'int', 'url', 'time', 'password', 'array', 'object', 'json', 'binary']);
             $table->text('value')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
