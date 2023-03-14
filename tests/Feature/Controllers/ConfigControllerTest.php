@@ -85,7 +85,7 @@ class ConfigControllerTest extends TestCase
         'value'       => 'testValue4',
         'description' => 'test4',
        ]);
-       $response  = $this->get(route('config.show', $config4->key));
+       $response = $this->get(route('config.show', $config4->key));
        $response->assertStatus(200);
        $response->assertSeeInOrder([
            $config4->key,
@@ -115,14 +115,14 @@ class ConfigControllerTest extends TestCase
        $response->assertRedirect('configs');
 
        $this->assertDatabaseHas(
-            'configs',
-            [
-                'key'         => 'test5',
-                'type'        => 'url',
-                'value'       => '"testValue5Updated"',
-                'description' => 'test5Updated',
-            ]
-        );
+           'configs',
+           [
+               'key'         => 'test5',
+               'type'        => 'url',
+               'value'       => '"testValue5Updated"',
+               'description' => 'test5Updated',
+           ]
+       );
    }
 
    public function testDestroyConfig()
@@ -133,7 +133,7 @@ class ConfigControllerTest extends TestCase
         'value'       => 'testValue6',
         'description' => 'test6',
        ]);
-       $response  = $this->delete(route('config.destroy', ['config' => $config6->key]));
+       $response = $this->delete(route('config.destroy', ['config' => $config6->key]));
        $response->assertStatus(302);
        $response->assertRedirect('configs');
        $this->assertSoftDeleted($config6);
