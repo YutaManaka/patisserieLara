@@ -3,8 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "lint": "eslint ./resources/js/* --ext .js,.vue --fix",
-        "php-cs-fixer": "./vendor/bin/sail composer lint"
+        "lint": "eslint ./resources/js/* --ext .js,.vue --fix && git add -u",
+        "php-cs-fixer": "./vendor/bin/sail composer lint && git add -u"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
