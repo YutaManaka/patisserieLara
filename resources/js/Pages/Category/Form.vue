@@ -1,3 +1,92 @@
+<script>
+export default { name: 'CategoryForm' }
+</script>
+
+<script setup>
+import {
+  ref, computed, onMounted,
+} from 'vue'
+import AppLayout from '@/Layouts/AppLayout'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import FormPanelLayout from '@/Components/FormPanelLayout'
+import { Inertia } from '@inertiajs/inertia'
+import InputControl from '@/Components/InputControl'
+import InputTimepicker from '@/Components/InputTimepicker'
+import JetInputError from '@/Components/InputError'
+import JetLabel from '@/Components/Label'
+import JetSecondaryButton from '@/Components/SecondaryButton'
+import preview from '@/actions/image/preview'
+import Tooltip from '@/Components/Tooltip'
+import { useForm } from '@inertiajs/vue3'
+import WarningButton from '@/Components/WarningButton'
+import WarningPanelLayout from '@/Components/WarningPanelLayout'
+
+const props = defineProps({
+  isNew: {
+    type: Boolean,
+    default: false,
+  },
+  category: {
+    type: Object,
+    default: () => {},
+  },
+  categories: {
+    type: Object,
+    required: true,
+  },
+  categoryLabels: {
+    type: Object,
+    required: true,
+  },
+  commonLabels: {
+    type: Object,
+    required: true,
+  },
+})
+
+const showConfirmationModal = ref(false)
+const form = useForm({
+  _method: 'POST',
+  name: '',
+  order_start_time: '00:00',
+  order_end_time: '23:59',
+  sort_order: 0,
+  image: null,
+})
+
+const refImage = ref(null)
+const imageUrl = computed(() => (props.isNew ? '' : props.category.img_url))
+const onSubmitted = async () => {
+  if (refImage.value) {
+    [form.image] = refImage.value.files
+  }
+  if (props.isNew) {
+    await form.post(route('category.store'))
+  } else {
+    await form.post(route('category.update', { category: props.category.id }))
+  }
+}
+const { filePreview: imagePreview, openFileView, onFileChanged: onImageChanged } = preview(refImage)
+const onReturnClicked = () => {
+  Inertia.get(route('category'))
+}
+const onDeleteButtonClicked = async () => {
+  await form.delete(route('category.destroy', { category: props.category.id }))
+  showConfirmationModal.value = false
+}
+
+onMounted(() => {
+  if (!props.isNew) {
+    form._method = 'PUT' // eslint-disable-line no-underscore-dangle
+    form.name = props.category.name
+    form.order_start_time = props.category.order_start_time
+    form.order_end_time = props.category.order_end_time
+    form.sort_order = props.category.sort_order
+    form.image = null
+  }
+})
+</script>
+
 <template>
   <app-layout>
     <form-panel-layout
@@ -139,92 +228,3 @@
     </confirmation-modal>
   </app-layout>
 </template>
-
-<script>
-export default { name: 'CategoryForm' }
-</script>
-
-<script setup>
-import {
-  ref, computed, onMounted,
-} from 'vue'
-import AppLayout from '@/Layouts/AppLayout'
-import ConfirmationModal from '@/Components/ConfirmationModal'
-import FormPanelLayout from '@/Components/FormPanelLayout'
-import { Inertia } from '@inertiajs/inertia'
-import InputControl from '@/Components/InputControl'
-import InputTimepicker from '@/Components/InputTimepicker'
-import JetInputError from '@/Components/InputError'
-import JetLabel from '@/Components/Label'
-import JetSecondaryButton from '@/Components/SecondaryButton'
-import preview from '@/actions/image/preview'
-import Tooltip from '@/Components/Tooltip'
-import { useForm } from '@inertiajs/vue3'
-import WarningButton from '@/Components/WarningButton'
-import WarningPanelLayout from '@/Components/WarningPanelLayout'
-
-const props = defineProps({
-  isNew: {
-    type: Boolean,
-    default: false,
-  },
-  category: {
-    type: Object,
-    default: () => {},
-  },
-  categories: {
-    type: Object,
-    required: true,
-  },
-  categoryLabels: {
-    type: Object,
-    required: true,
-  },
-  commonLabels: {
-    type: Object,
-    required: true,
-  },
-})
-
-const showConfirmationModal = ref(false)
-const form = useForm({
-  _method: 'POST',
-  name: '',
-  order_start_time: '00:00',
-  order_end_time: '23:59',
-  sort_order: 0,
-  image: null,
-})
-
-const refImage = ref(null)
-const imageUrl = computed(() => (props.isNew ? '' : props.category.img_url))
-const onSubmitted = async () => {
-  if (refImage.value) {
-    [form.image] = refImage.value.files
-  }
-  if (props.isNew) {
-    await form.post(route('category.store'))
-  } else {
-    await form.post(route('category.update', { category: props.category.id }))
-  }
-}
-const { filePreview: imagePreview, openFileView, onFileChanged: onImageChanged } = preview(refImage)
-const onReturnClicked = () => {
-  Inertia.get(route('category'))
-}
-const onDeleteButtonClicked = async () => {
-  await form.delete(route('category.destroy', { category: props.category.id }))
-  showConfirmationModal.value = false
-}
-
-onMounted(() => {
-  if (!props.isNew) {
-    form._method = 'PUT' // eslint-disable-line no-underscore-dangle
-    form.name = props.category.name
-    form.order_start_time = props.category.order_start_time
-    form.order_end_time = props.category.order_end_time
-    form.sort_order = props.category.sort_order
-    form.image = null
-  }
-})
-</script>

@@ -4,7 +4,7 @@ export default { name: 'ConfigForm' }
 
 <script setup>
 import {
-  ref, reactive, onMounted, computed, watch
+  ref, onMounted,
 } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { useForm } from '@inertiajs/vue3'
