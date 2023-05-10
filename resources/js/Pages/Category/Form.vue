@@ -10,7 +10,7 @@
         <input-control
           id="name"
           v-model="form.name"
-          :label="categoryLabels.name"
+          :label="commonLabels.name"
           :error="form.errors.name"
           class="mt-1 block w-7/12"
         />
@@ -39,7 +39,7 @@
         <input-control
           id="name"
           v-model="form.sort_order"
-          :label="categoryLabels.sort_order"
+          :label="commonLabels.sort_order"
           :error="form.errors.sort_order"
           class="mt-1 block w-3/12"
         >
@@ -177,6 +177,10 @@ const props = defineProps({
     required: true,
   },
   categoryLabels: {
+    type: Object,
+    required: true,
+  },
+  commonLabels: {
     type: Object,
     required: true,
   },

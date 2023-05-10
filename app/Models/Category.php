@@ -19,7 +19,6 @@ class Category extends Model
         'name'             => 'カテゴリ名',
         'order_start_time' => '提供開始時間',
         'order_end_time'   => '提供終了時間',
-        'sort_order'       => '表示順',
         'disabled'         => '表示/非表示',
     ];
 

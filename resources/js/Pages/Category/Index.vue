@@ -76,14 +76,18 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  commonLabels: {
+    type: Object,
+    required: true,
+  },
 })
 
 const headers = {
-  img_url: props.categoryLabels.img_url,
-  name: props.categoryLabels.name,
+  img_url: props.commonLabels.img_url,
+  name: props.commonLabels.name,
   order_start_time: props.categoryLabels.order_start_time,
   order_end_time: props.categoryLabels.order_end_time,
-  sort_order: props.categoryLabels.sort_order,
+  sort_order: props.commonLabels.sort_order,
   disabled: props.categoryLabels.disabled,
 }
 const onRowClicked = (category) => {

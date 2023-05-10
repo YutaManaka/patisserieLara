@@ -48,6 +48,16 @@ Route::middleware([
         [\App\Http\Controllers\CategoryController::class, 'disabled'],
     )->name('category.disabled');
 
+    // 商品
+    Route::resource('/categories', \App\Http\Controllers\ItemController::class)->names([
+        'index'   => 'item',
+        'create'  => 'item.create',
+        'store'   => 'item.store',
+        'show'    => 'item.show',
+        'update'  => 'item.update',
+        'destroy' => 'item.destroy',
+    ]);
+
     // アカウント
     Route::resource('/users', \App\Http\Controllers\UserController::class)->names([
         'index'   => 'user',
