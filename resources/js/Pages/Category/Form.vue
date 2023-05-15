@@ -159,7 +159,7 @@ onMounted(() => {
         <div class="flex relative">
           <jet-label
             for="photo"
-            :value="categoryLabels.img_url"
+            :value="commonLabels.img_url"
           />
           <tooltip
             :style-object="{ top: '-4px', left: '150px', width: '300px' }"
@@ -207,7 +207,7 @@ onMounted(() => {
       :show="showConfirmationModal"
     >
       <template #title>
-        アカウント削除
+        カテゴリ削除
       </template>
       <template #content>
         「{{ form.name }}」を削除してもよろしいですか？

@@ -6,6 +6,7 @@ use App\Actions\Category\DeleteCategory;
 use App\Actions\Category\GetCategories;
 use App\Actions\Category\StoreCategory;
 use App\Actions\Category\UpdateCategory;
+use App\Consts\Common;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
@@ -17,6 +18,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         Inertia::share([
+            'commonLabels'   => Common::COMMON_LABELS,
             'categoryLabels' => Category::CATEGORY_LABELS,
         ]);
     }

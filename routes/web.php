@@ -49,7 +49,7 @@ Route::middleware([
     )->name('category.disabled');
 
     // 商品
-    Route::resource('/categories', \App\Http\Controllers\ItemController::class)->names([
+    Route::resource('/items', \App\Http\Controllers\ItemController::class)->names([
         'index'   => 'item',
         'create'  => 'item.create',
         'store'   => 'item.store',
