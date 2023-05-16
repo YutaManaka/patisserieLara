@@ -13,7 +13,7 @@ class Item extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public const OPTION_LABELS = [
+    public const ITEM_LABELS = [
         'index_title' => '商品一覧',
         'form_title'  => '商品詳細',
         'disabled'    => '非表示',
@@ -34,7 +34,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(TableOrderCategory::class, 'table_order_category_item', 'table_order_item_id', 'table_order_category_id');
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
     // TODO: image_urlの取得

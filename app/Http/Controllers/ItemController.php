@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Category\GetCategories;
 use App\Actions\Item\DeleteItem;
-use App\Actions\Item\GetItemGroupKeys;
-use App\Actions\Item\GetItems;
+use App\Actions\Item\GetUncategorizedItems;
 use App\Actions\Item\StoreItem;
 use App\Actions\Item\UpdateItem;
 use App\Consts\Common;
@@ -20,27 +20,36 @@ class ItemController extends Controller
     {
         Inertia::share([
             'commonLabels' => Common::COMMON_LABELS,
-            'ItemLabels'   => Item::Item_LABELS,
+            'itemLabels'   => Item::ITEM_LABELS,
         ]);
     }
 
-    public function index(GetItems $action)
+    public function index(GetUncategorizedItems $action, GetCategories $getCategoryAction)
     {
+        $categories = $getCategoryAction->execute()
+            ->get()
+            ->load(['items' => function ($query) {
+                return $query->orderBy('sort_order');
+            }]);
+        $categories = collect($categories)->prepend([
+            'name'  => '未分類',
+            'items' => $action->execute(),
+        ]);
+
         return Inertia::render(
             'Item/Index',
             [
-                'Items' => $action->execute()->paginate(),
+                'categories' => $categories,
             ]
         );
     }
 
-    public function create(GetItemGroupKeys $action)
+    public function create()
     {
         return Inertia::render(
             'Item/Form',
             [
-                'isNew'     => true,
-                'groupKeys' => $action->execute(),
+                'isNew' => true,
             ]
         );
     }

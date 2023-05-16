@@ -11,6 +11,10 @@ class Config extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public const ROUNDING_UP   = 0;
+    public const ROUNDING_DOWN = 1;
+    public const ROUNDING_OFF  = 2;
+
     public const CONFIG_LABELS = [
         'title'       => '各種設定',
         'description' => '項目名',
