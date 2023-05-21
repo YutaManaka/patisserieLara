@@ -29,7 +29,7 @@ class ItemFactory extends Factory
         }
 
         return [
-            'code'               => $this->faker->numberBetween(0, 9999999),
+            'code'               => $this->faker->numberBetween(0, 29999),
             'img_url'            => null,
             'name'               => $name,
             'receipt_name'       => substr($name, 10),

@@ -32,7 +32,7 @@ class StoreItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'               => ['required', 'int', 'max:999999'],
+            'code'               => ['required', 'int', 'max:29999'],
             'image'              => ['nullable', 'mimes:jpeg,jpg,png'],
             'name'               => ['required', 'max:20'],
             'receipt_name'       => ['required', 'max:10'],
