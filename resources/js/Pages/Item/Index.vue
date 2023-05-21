@@ -1,13 +1,13 @@
 <script>
-export default { name: "ItemIndex" };
+export default { name: "ItemIndex" }
 </script>
 
 <script setup>
-import AppLayout from "@/Layouts/AppLayout";
-import { Inertia } from "@inertiajs/inertia";
-import PanelLayout from "@/Components/PanelLayout";
-import { computed, ref } from "vue";
-import Tooltip from "@/Components/Tooltip";
+import AppLayout from "@/Layouts/AppLayout"
+import { Inertia } from "@inertiajs/inertia"
+import PanelLayout from "@/Components/PanelLayout"
+import { computed, ref } from "vue"
+import Tooltip from "@/Components/Tooltip"
 
 const props = defineProps({
   categories: {
@@ -18,19 +18,19 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-});
+})
 
 const isUncategorized = computed(() => (categoryName) =>
   categoryName === props.categories[0].name
-);
+)
 
 const onItemEditClicked = (item) => {
-  Inertia.get(route("item.show", { item: item.id }));
-};
-const expandUnCategorizedStatus = ref(false);
+  Inertia.get(route("item.show", { item: item.id }))
+}
+const expandUnCategorizedStatus = ref(false)
 const toggleUnCategorizedItems = () => {
-  expandUnCategorizedStatus.value = !expandUnCategorizedStatus.value;
-};
+  expandUnCategorizedStatus.value = !expandUnCategorizedStatus.value
+}
 </script>
 
 <template>
