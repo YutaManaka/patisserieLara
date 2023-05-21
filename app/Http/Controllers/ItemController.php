@@ -58,16 +58,16 @@ class ItemController extends Controller
     {
         $action->execute($request->all());
 
-        return Redirect::route('Item')->with('success', '作成しました。');
+        return Redirect::route('item')->with('success', '作成しました。');
     }
 
-    public function show(Item $Item, GetItemGroupKeys $action)
+    public function show(Item $Item, GetCategories $action)
     {
         return Inertia::render(
-            'TableOrder/Item/Form',
+            'Item/Form',
             [
-                'Item'      => $Item,
-                'groupKeys' => $action->execute(),
+                'item'       => $Item->load(['categories']),
+                'categories' => $action->execute()->get(),
             ]
         );
     }
@@ -76,13 +76,13 @@ class ItemController extends Controller
     {
         $action->execute($Item, $request->all());
 
-        return Redirect::route('Item')->with('success', '更新しました。');
+        return Redirect::route('item')->with('success', '更新しました。');
     }
 
     public function destroy(Item $Item, DeleteItem $action)
     {
         $action->execute($Item);
 
-        return Redirect::route('Item')->with('success', '削除しました。');
+        return Redirect::route('item')->with('success', '削除しました。');
     }
 }

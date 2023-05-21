@@ -14,9 +14,11 @@ class Item extends Model
     use SoftDeletes;
 
     public const ITEM_LABELS = [
-        'index_title' => '商品一覧',
-        'form_title'  => '商品詳細',
-        'disabled'    => '非表示',
+        'index_title'  => '商品一覧',
+        'form_title'   => '商品詳細',
+        'description'  => '商品説明',
+        'disabled'     => '非表示にする',
+        'category_ids' => '表示するカテゴリ',
     ];
 
     protected $fillable = [
