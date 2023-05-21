@@ -4,10 +4,11 @@ export default { name: "ItemIndex" }
 
 <script setup>
 import AppLayout from "@/Layouts/AppLayout"
+import { computed, ref } from "vue"
 import { Inertia } from "@inertiajs/inertia"
 import PanelLayout from "@/Components/PanelLayout"
-import { computed, ref } from "vue"
 import Tooltip from "@/Components/Tooltip"
+import WhiteButton from '@/Components/WhiteButton'
 
 const props = defineProps({
   categories: {
@@ -23,7 +24,9 @@ const props = defineProps({
 const isUncategorized = computed(() => (categoryName) =>
   categoryName === props.categories[0].name
 )
-
+const onCreateClicked = () => {
+  Inertia.get(route('item.create'))
+}
 const onItemEditClicked = (item) => {
   Inertia.get(route("item.show", { item: item.id }))
 }
@@ -35,9 +38,18 @@ const toggleUnCategorizedItems = () => {
 
 <template>
   <app-layout>
-    <panel-layout title="商品一覧">
+    <panel-layout :title="itemLabels.index_title">
       <div class="bg-white overflow-hidden shadow-xl">
-        <div class="w-full py-8">
+        <div class="w-full pt-2 pb-8">
+          <div class="flex-none pr-8 text-right">
+            <div>
+              <white-button
+                @click="onCreateClicked"
+              >
+                商品新規作成
+              </white-button>
+            </div>
+          </div>
           <div class="table-fixed flex flex-wrap pl-5 pt-2 pr-5">
             <div
               v-for="category in categories"

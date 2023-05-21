@@ -89,7 +89,7 @@ onMounted(() => {
   <app-layout>
     <form-panel-layout
       :form="form"
-      title="商品"
+      :title="itemLabels.form_title"
       @back="onReturnClicked"
       @submit="onSubmitted"
     >

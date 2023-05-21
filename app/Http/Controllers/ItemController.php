@@ -44,12 +44,13 @@ class ItemController extends Controller
         );
     }
 
-    public function create()
+    public function create(GetCategories $action)
     {
         return Inertia::render(
             'Item/Form',
             [
-                'isNew' => true,
+                'isNew'      => true,
+                'categories' => $action->execute()->get(),
             ]
         );
     }
