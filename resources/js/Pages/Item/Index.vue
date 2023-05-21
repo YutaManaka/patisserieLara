@@ -1,13 +1,13 @@
 <script>
-export default { name: 'ItemIndex' }
+export default { name: "ItemIndex" };
 </script>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout'
-import { Inertia } from '@inertiajs/inertia'
-import PanelLayout from '@/Components/PanelLayout'
-import { computed, ref } from 'vue'
-import Tooltip from '@/Components/Tooltip'
+import AppLayout from "@/Layouts/AppLayout";
+import { Inertia } from "@inertiajs/inertia";
+import PanelLayout from "@/Components/PanelLayout";
+import { computed, ref } from "vue";
+import Tooltip from "@/Components/Tooltip";
 
 const props = defineProps({
   categories: {
@@ -18,17 +18,19 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-})
+});
 
-const isUncategorized = computed(() => (categoryName) => categoryName === props.categories[0].name)
+const isUncategorized = computed(() => (categoryName) =>
+  categoryName === props.categories[0].name
+);
 
 const onItemEditClicked = (item) => {
-  Inertia.get(route('item.show', { item: item.id }))
-}
-const expandUnCategorizedStatus = ref(false)
+  Inertia.get(route("item.show", { item: item.id }));
+};
+const expandUnCategorizedStatus = ref(false);
 const toggleUnCategorizedItems = () => {
-  expandUnCategorizedStatus.value = !expandUnCategorizedStatus.value
-}
+  expandUnCategorizedStatus.value = !expandUnCategorizedStatus.value;
+};
 </script>
 
 <template>
@@ -36,15 +38,13 @@ const toggleUnCategorizedItems = () => {
     <panel-layout title="商品一覧">
       <div class="bg-white overflow-hidden shadow-xl">
         <div class="w-full py-8">
-          <div
-            class="table-fixed flex flex-wrap pl-5 pt-2 pr-5"
-          >
+          <div class="table-fixed flex flex-wrap pl-5 pt-2 pr-5">
             <div
               v-for="category in categories"
               :key="category.key"
             >
               <a
-                :href="`#category-${category.name}`"
+                :href="`#category-${category.id}`"
                 class="text-lg flex flew-row hover:bg-indigo-600 hover:text-blue-50 text-indigo-700 pr-5"
               >
                 <svg
@@ -71,14 +71,12 @@ const toggleUnCategorizedItems = () => {
               :key="category.key"
               class="pt-5"
             >
-              <a :href="`#category-${category.name}`" />
+              <a :href="`#category-${category.id}`" />
               <div
-                :id="`category-${category.name}`"
+                :id="`category-${category.id}`"
                 class="flex relative"
               >
-                <h1
-                  class="text-2xl font-bold ml-5 mt-8 mb-0"
-                >
+                <h1 class="text-2xl font-bold ml-5 mt-8 mb-0">
                   {{ category.name }}
                 </h1>
                 <tooltip
@@ -92,14 +90,20 @@ const toggleUnCategorizedItems = () => {
                 </tooltip>
               </div>
               <div
-                v-if="category.items?.length > 0 && isUncategorized(category.name) && !expandUnCategorizedStatus"
+                v-if="
+                  category.items?.length > 0 &&
+                    isUncategorized(category.name) &&
+                    !expandUnCategorizedStatus
+                "
                 class="flex flex-wrap container mx-auto my-auto bg-pink-200 ml-5 mr-10"
               >
                 <span
                   class="px-5 py-2"
                   @click.prevent="toggleUnCategorizedItems()"
                 >
-                  <button class="bg-pink-400 hover:bg-pink-400 text-pink-900 font-bold py-2 px-4 rounded inline-flex items-center">
+                  <button
+                    class="bg-pink-400 hover:bg-pink-400 text-pink-900 font-bold py-2 px-4 rounded inline-flex items-center"
+                  >
                     <svg
                       class="fill-current w-4 h-4 mr-2"
                       xmlns="http://www.w3.org/2000/svg"
@@ -107,9 +111,7 @@ const toggleUnCategorizedItems = () => {
                     >
                       <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
                     </svg>
-                    <span>
-                      {{ category.items?.length }}個の未分類商品を表示する
-                    </span>
+                    <span> {{ category.items?.length }}個の未分類商品を表示する </span>
                   </button>
                 </span>
               </div>
@@ -135,7 +137,9 @@ const toggleUnCategorizedItems = () => {
                       class="overflow-hidden max-h-40 ml-auto mr-auto"
                     >
                     <div class="p-1 md:p-2 lg:p-4">
-                      <p class="text-justify text-lg text-black md:font-bold text-gray-900">
+                      <p
+                        class="text-justify text-lg text-black md:font-bold text-gray-900"
+                      >
                         [{{ item.code }}] {{ item.name }}
                       </p>
                       <div class="flex flex-wrap gap-1">
@@ -148,7 +152,9 @@ const toggleUnCategorizedItems = () => {
                       </div>
                       <div class="flex flex-wrap gap-1">
                         <div v-if="item.order_start_date || item.order_end_date">
-                          <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-yellow-500 rounded-full">
+                          <span
+                            class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-yellow-500 rounded-full"
+                          >
                             期間限定
                           </span>
                         </div>
@@ -178,7 +184,9 @@ const toggleUnCategorizedItems = () => {
                       class="px-5 py-2"
                       @click.prevent="toggleUnCategorizedItems"
                     >
-                      <button class="bg-pink-400 hover:bg-pink-400 text-pink-900 font-bold py-2 px-4 rounded inline-flex items-center">
+                      <button
+                        class="bg-pink-400 hover:bg-pink-400 text-pink-900 font-bold py-2 px-4 rounded inline-flex items-center"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="h-5 w-5"
@@ -191,9 +199,7 @@ const toggleUnCategorizedItems = () => {
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <span>
-                          {{ category.items.length }}個の未分類商品を隠す
-                        </span>
+                        <span> {{ category.items.length }}個の未分類商品を隠す </span>
                       </button>
                     </span>
                   </div>
