@@ -3,10 +3,8 @@ export default { name: 'CategoryForm' }
 </script>
 
 <script setup>
-import {
-  ref, computed, onMounted,
-} from 'vue'
 import AppLayout from '@/Layouts/AppLayout'
+import { computed, onMounted, ref } from 'vue'
 import ConfirmationModal from '@/Components/ConfirmationModal'
 import FormPanelLayout from '@/Components/FormPanelLayout'
 import { Inertia } from '@inertiajs/inertia'

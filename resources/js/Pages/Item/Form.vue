@@ -3,16 +3,19 @@ export default { name: "ItemForm" }
 </script>
 
 <script setup>
-import { ref, computed, onMounted } from "vue"
-import { Inertia } from "@inertiajs/inertia"
 import AppLayout from "@/Layouts/AppLayout"
-import InputControl from "@/Components/InputControl"
+import { computed, onMounted, ref } from "vue"
+import ConfirmationModal from '@/Components/ConfirmationModal'
 import FormPanelLayout from "@/Components/FormPanelLayout"
+import { Inertia } from "@inertiajs/inertia"
+import InputControl from "@/Components/InputControl"
+import JetInputError from '@/Components/InputError'
+import JetSecondaryButton from '@/Components/SecondaryButton'
 import preview from "@/actions/image/preview"
 import Tooltip from "@/Components/Tooltip"
 import { useForm } from "@inertiajs/vue3"
-import JetSecondaryButton from '@/Components/SecondaryButton'
-import JetInputError from '@/Components/InputError'
+import WarningButton from '@/Components/WarningButton'
+import WarningPanelLayout from '@/Components/WarningPanelLayout'
 
 const props = defineProps({
   isNew: {
@@ -36,7 +39,7 @@ const props = defineProps({
     required: true,
   },
 })
-
+const showConfirmationModal = ref(false)
 const form = useForm({
   _method: 'POST',
   category_ids: [],
@@ -66,6 +69,10 @@ const {
 } = preview(refImage)
 const onReturnClicked = () => {
   Inertia.get(route('item'))
+}
+const onDeleteButtonClicked = async () => {
+  await form.delete(route('item.destroy', { item: props.item.id }))
+  showConfirmationModal.value = false
 }
 
 onMounted(() => {
@@ -287,5 +294,42 @@ onMounted(() => {
         </div>
       </div>
     </form-panel-layout>
+    <warning-panel-layout
+      v-if="!isNew && item.categories.length === 0"
+      @click="showConfirmationModal = true"
+    >
+      <template #title>
+        <h3>削除</h3>
+      </template>
+      <template #body>
+        この操作は元に戻すことはできません。
+      </template>
+      <template #button-inner-text>
+        削除
+      </template>
+    </warning-panel-layout>
+    <confirmation-modal
+      :show="showConfirmationModal"
+    >
+      <template #title>
+        商品削除
+      </template>
+      <template #content>
+        「{{ form.name }}」を削除してもよろしいですか？
+      </template>
+      <template #footer>
+        <jet-secondary-button
+          class="mr-4"
+          @click="showConfirmationModal = false"
+        >
+          キャンセル
+        </jet-secondary-button>
+        <warning-button
+          @click="onDeleteButtonClicked"
+        >
+          削除
+        </warning-button>
+      </template>
+    </confirmation-modal>
   </app-layout>
 </template>
