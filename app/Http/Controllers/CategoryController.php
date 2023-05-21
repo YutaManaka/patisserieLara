@@ -56,8 +56,9 @@ class CategoryController extends Controller
         return Inertia::render(
             'Category/Form',
             [
-                'category'   => $category,
-                'categories' => $action->execute()->get(),
+                'category'        => $category,
+                'categories'      => $action->execute()->get(),
+                'doesntHaveItems' => $category->items()->count() === 0,
             ]
         );
     }

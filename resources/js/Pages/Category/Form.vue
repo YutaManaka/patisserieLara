@@ -40,6 +40,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  doesntHaveItems: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const showConfirmationModal = ref(false)
@@ -188,7 +192,7 @@ onMounted(() => {
       </div>
     </form-panel-layout>
     <warning-panel-layout
-      v-if="!isNew"
+      v-if="!isNew && doesntHaveItems"
       @click="showConfirmationModal = true"
     >
       <template #title>
