@@ -8,34 +8,35 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class Category extends Model
+class Item extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    public const CATEGORY_LABELS = [
-        'index_title'      => 'カテゴリ一覧',
-        'form_title'       => 'カテゴリ詳細',
-        'name'             => 'カテゴリ名',
-        'order_start_time' => '提供開始時間',
-        'order_end_time'   => '提供終了時間',
-        'disabled'         => '表示/非表示',
+    public const ITEM_LABELS = [
+        'index_title'  => '商品一覧',
+        'form_title'   => '商品詳細',
+        'description'  => '商品説明',
+        'disabled'     => '非表示にする',
+        'category_ids' => '表示するカテゴリ',
     ];
 
     protected $fillable = [
-        'name',
+        'code',
         'img_url',
-        'order_start_time',
-        'order_end_time',
+        'name',
+        'receipt_name',
+        'description',
+        'price',
+        'tax',
+        'tax_excluded_price',
         'sort_order',
         'disabled',
     ];
 
-    protected $appends = ['image_url'];
-
-    public function items()
+    public function categories()
     {
-        return $this->belongsToMany(Item::class, 'category_item');
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
     // TODO: image_urlの取得
@@ -43,7 +44,7 @@ class Category extends Model
     {
         $url = $this->attributes['image_url'] ?? null;
         if (!$url) {
-            return null;
+            return '/images/dummy-item-image.png';
         }
 
         return Str::startsWith($url, 'http')

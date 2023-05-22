@@ -1,3 +1,82 @@
+<script>
+export default { name: 'UserForm' }
+</script>
+
+<script setup>
+import {
+  ref, onMounted,
+} from 'vue'
+import { Inertia } from '@inertiajs/inertia'
+import AppLayout from '@/Layouts/AppLayout'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import FormPanelLayout from '@/Components/FormPanelLayout'
+import JetCheckbox from '@/Components/Checkbox'
+import JetSecondaryButton from '@/Components/SecondaryButton'
+import InputControl from '@/Components/InputControl'
+import SelectControl from '@/Components/SelectControl'
+import WarningButton from '@/Components/WarningButton'
+import WarningPanelLayout from '@/Components/WarningPanelLayout'
+import { useForm } from '@inertiajs/vue3'
+
+const props = defineProps({
+  isNew: {
+    type: Boolean,
+    default: false,
+  },
+  user: {
+    type: Object,
+    default: () => {},
+  },
+  account: {
+    type: Object,
+    default: () => {},
+  },
+  permissions: {
+    type: Object,
+    required: true,
+  },
+  userLabels: {
+    type: Object,
+    required: true,
+  },
+})
+
+const showConfirmationModal = ref(false)
+const form = useForm({
+  name: '',
+  email: '',
+  permission: null,
+  change_password: false,
+  new_password: '',
+})
+
+const onSubmitted = async () => {
+  if (props.isNew) {
+    await form.post(route('user.store'), {
+      preserveScroll: true,
+    })
+  } else {
+    await form.put(route('user.update', { user: props.account.id }), {
+      preserveScroll: true,
+    })
+  }
+}
+const onReturnClicked = () => Inertia.visit(route('user'))
+const onDeleteButtonClicked = async () => {
+  await form.delete(route('user.destroy', { user: props.account.id }))
+  showConfirmationModal.value = false
+}
+onMounted(() => {
+  if (!props.isNew) {
+    form.name = props.account.name
+    form.email = props.account.email
+    form.permission = props.account.permission
+    form.change_password = props.account.change_password
+    form.new_password = props.account.new_password
+  }
+})
+</script>
+
 <template>
   <app-layout :user="user">
     <form-panel-layout
@@ -97,82 +176,3 @@
     </confirmation-modal>
   </app-layout>
 </template>
-
-<script>
-export default { name: 'UserForm' }
-</script>
-
-<script setup>
-import {
-  ref, onMounted,
-} from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import AppLayout from '@/Layouts/AppLayout'
-import ConfirmationModal from '@/Components/ConfirmationModal'
-import FormPanelLayout from '@/Components/FormPanelLayout'
-import JetCheckbox from '@/Components/Checkbox'
-import JetSecondaryButton from '@/Components/SecondaryButton'
-import InputControl from '@/Components/InputControl'
-import SelectControl from '@/Components/SelectControl'
-import WarningButton from '@/Components/WarningButton'
-import WarningPanelLayout from '@/Components/WarningPanelLayout'
-import { useForm } from '@inertiajs/vue3'
-
-const props = defineProps({
-  isNew: {
-    type: Boolean,
-    default: false,
-  },
-  user: {
-    type: Object,
-    default: () => {},
-  },
-  account: {
-    type: Object,
-    default: () => {},
-  },
-  permissions: {
-    type: Object,
-    required: true,
-  },
-  userLabels: {
-    type: Object,
-    required: true,
-  },
-})
-
-const showConfirmationModal = ref(false)
-const form = useForm({
-  name: '',
-  email: '',
-  permission: null,
-  change_password: false,
-  new_password: '',
-})
-
-const onSubmitted = async () => {
-  if (props.isNew) {
-    await form.post(route('user.store'), {
-      preserveScroll: true,
-    })
-  } else {
-    await form.put(route('user.update', { user: props.account.id }), {
-      preserveScroll: true,
-    })
-  }
-}
-const onReturnClicked = () => Inertia.visit(route('user'))
-const onDeleteButtonClicked = async () => {
-  await form.delete(route('user.destroy', { user: props.account.id }))
-  showConfirmationModal.value = false
-}
-onMounted(() => {
-  if (!props.isNew) {
-    form.name = props.account.name
-    form.email = props.account.email
-    form.permission = props.account.permission
-    form.change_password = props.account.change_password
-    form.new_password = props.account.new_password
-  }
-})
-</script>

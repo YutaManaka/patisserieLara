@@ -1,3 +1,55 @@
+<script>
+export default { name: 'CategoryIndex' }
+</script>
+
+<script setup>
+import AppLayout from '@/Layouts/AppLayout'
+import DataTable from '@/Components/DataTable'
+import { Inertia } from '@inertiajs/inertia'
+import PanelLayout from '@/Components/PanelLayout'
+import SwitchButton from '@/Components/SwitchButton'
+import WhiteButton from '@/Components/WhiteButton'
+
+const props = defineProps({
+  categories: {
+    type: Object,
+    required: true,
+  },
+  categoryLabels: {
+    type: Object,
+    required: true,
+  },
+  commonLabels: {
+    type: Object,
+    required: true,
+  },
+})
+
+const headers = {
+  img_url: props.commonLabels.img_url,
+  name: props.commonLabels.name,
+  order_start_time: props.categoryLabels.order_start_time,
+  order_end_time: props.categoryLabels.order_end_time,
+  sort_order: props.commonLabels.sort_order,
+  disabled: props.categoryLabels.disabled,
+}
+const onRowClicked = (category) => {
+  Inertia.get(route('category.show', {
+    category: category.id,
+  }))
+  return
+}
+const onCreateClicked = () => {
+  Inertia.get(route('category.create'))
+}
+const onCategoryDisabled = async (item) => {
+  await Inertia.put(route('category.disabled', {
+    category: item.id,
+  }))
+  window.scroll(0, 0)
+}
+</script>
+
 <template>
   <app-layout>
     <panel-layout :title="categoryLabels.index_title">
@@ -54,51 +106,3 @@
     </panel-layout>
   </app-layout>
 </template>
-
-<script>
-export default { name: 'CategoryIndex' }
-</script>
-
-<script setup>
-import AppLayout from '@/Layouts/AppLayout'
-import DataTable from '@/Components/DataTable'
-import { Inertia } from '@inertiajs/inertia'
-import PanelLayout from '@/Components/PanelLayout'
-import SwitchButton from '@/Components/SwitchButton'
-import WhiteButton from '@/Components/WhiteButton'
-
-const props = defineProps({
-  categories: {
-    type: Object,
-    required: true,
-  },
-  categoryLabels: {
-    type: Object,
-    required: true,
-  },
-})
-
-const headers = {
-  img_url: props.categoryLabels.img_url,
-  name: props.categoryLabels.name,
-  order_start_time: props.categoryLabels.order_start_time,
-  order_end_time: props.categoryLabels.order_end_time,
-  sort_order: props.categoryLabels.sort_order,
-  disabled: props.categoryLabels.disabled,
-}
-const onRowClicked = (category) => {
-  Inertia.get(route('category.show', {
-    category: category.id,
-  }))
-  return
-}
-const onCreateClicked = () => {
-  Inertia.get(route('category.create'))
-}
-const onCategoryDisabled = async (item) => {
-  await Inertia.put(route('category.disabled', {
-    category: item.id,
-  }))
-  window.scroll(0, 0)
-}
-</script>

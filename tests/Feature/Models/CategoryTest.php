@@ -29,7 +29,7 @@ class CategoryTest extends TestCase
         $category->refresh();
 
         collect($attributes)
-            ->each(fn ($val, $key) => $this->assertEquals($val, $category->$key));
+            ->each(fn ($val, $key) => $this->assertSame($val, $category->$key));
     }
 
     public function testCreate()

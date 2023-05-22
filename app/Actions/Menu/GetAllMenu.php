@@ -31,22 +31,14 @@ class GetAllMenu
                         User::PERMISSION_ADMIN,
                     ],
                 ],
-                // 'item' => [
-                //     'name'        => '商品',
-                //     'route'       => 'item',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
-                // 'option' => [
-                //     'name'        => 'オプション',
-                //     'route'       => 'option',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
+                'item' => [
+                    'name'        => '商品',
+                    'route'       => 'item',
+                    'permissions' => [
+                        User::PERMISSION_SYSTEM,
+                        User::PERMISSION_ADMIN,
+                    ],
+                ],
                 // 'receipt' => [
                 //     'name'        => 'レシート',
                 //     'route'       => 'receipt',
