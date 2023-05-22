@@ -75,9 +75,9 @@ class UpdateCategoryRequestTest extends ValidationTestCase
                 false, ['sort_order' => 101],
             ],
 
-            // 'imageの拡張子がjpeg,jpg,pngではない' => [
-            //     false, ['image' => 'http://via.placeholder.com/300.gif'],
-            // ],
+            'imageの拡張子がjpeg,jpg,pngではない' => [
+                false, ['image' => 'http://via.placeholder.com/300.gif'],
+            ],
         ];
     }
 }
