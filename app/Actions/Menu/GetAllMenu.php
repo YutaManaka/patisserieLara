@@ -17,7 +17,7 @@ class GetAllMenu
             'items' => [
                 'order' => [
                     'name'        => '売上',
-                    'route'       => 'transaction',
+                    'route'       => 'order',
                     'permissions' => [
                         User::PERMISSION_SYSTEM,
                         User::PERMISSION_ADMIN,

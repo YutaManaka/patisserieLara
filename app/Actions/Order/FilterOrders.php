@@ -18,7 +18,7 @@ class FilterOrders
     public function execute(array $params = []): Builder
     {
         if ($date = Arr::pull($params, 'date')) {
-            $this->query->where('reserve_date', $date->format('Y-m-d'));
+            $this->query->where('order_date', $date->format('Y-m-d'));
         }
 
         return $this->query;

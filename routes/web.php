@@ -34,7 +34,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    // カテゴリ
+    // 売上
     Route::resource('/orders', \App\Http\Controllers\OrderController::class)->names([
         'index'   => 'order',
         'create'  => 'order.create',
