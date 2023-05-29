@@ -35,6 +35,16 @@ Route::middleware([
     })->name('dashboard');
 
     // カテゴリ
+    Route::resource('/orders', \App\Http\Controllers\OrderController::class)->names([
+        'index'   => 'order',
+        'create'  => 'order.create',
+        'store'   => 'order.store',
+        'show'    => 'order.show',
+        'update'  => 'order.update',
+        'destroy' => 'order.destroy',
+    ]);
+
+    // カテゴリ
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->names([
         'index'   => 'category',
         'create'  => 'category.create',
