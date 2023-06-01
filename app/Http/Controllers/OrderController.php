@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
         Inertia::share([
             'commonLabels' => Common::COMMON_LABELS,
-            'itemLabels'   => Order::ORDER_LABELS,
+            'orderLabels'  => Order::ORDER_LABELS,
         ]);
     }
 
@@ -25,7 +25,7 @@ class OrderController extends Controller
         ])->with(['items']);
 
         return Inertia::render(
-            'TableOrder/Transaction/Index',
+            'Order/Index',
             [
                 'orders' => $orders->paginate(30),
             ]

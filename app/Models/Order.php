@@ -18,6 +18,7 @@ class Order extends Model
         'quantity'   => '数量',
         'item_price' => '単価(税込)',
         'created_at' => '注文日時',
+        'action'     => '',
     ];
 
     protected $fillable = [
