@@ -34,6 +34,20 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    // 売上
+    Route::resource('/orders', \App\Http\Controllers\OrderController::class)->names([
+        'index'   => 'order',
+        'create'  => 'order.create',
+        'store'   => 'order.store',
+        'show'    => 'order.show',
+        'update'  => 'order.update',
+        'destroy' => 'order.destroy',
+    ]);
+    Route::put(
+        '/orders/{order}/set-orders-delivered',
+        [\App\Http\Controllers\OrderController::class, 'setOrdersDelivered'],
+    )->name('order.set-orders-delivered');
+
     // カテゴリ
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->names([
         'index'   => 'category',

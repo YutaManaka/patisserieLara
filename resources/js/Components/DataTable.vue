@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody
-        v-if="!noTenantText && items.length > 0"
+        v-if="items.length > 0"
         class="text-neutral-700 text-sm font-light"
       >
         <tr
@@ -50,20 +50,6 @@
               </slot>
             </td>
           </template>
-        </tr>
-      </tbody>
-      <tbody
-        v-else-if="noTenantText && noDataText"
-      >
-        <tr
-          class="border-b border-gray-200 hover:bg-gray-100"
-        >
-          <td
-            :colspan="Object.keys(headers).length"
-            class="py-3 px-6 text-center whitespace-nowrap pt-10 pb-10 text-gray-400 font-bold"
-          >
-            {{ noTenantText }}
-          </td>
         </tr>
       </tbody>
       <tbody
@@ -95,10 +81,6 @@ defineProps({
     default: () => [],
   },
   noDataText: {
-    type: String,
-    default: '',
-  },
-  noTenantText: {
     type: String,
     default: '',
   },

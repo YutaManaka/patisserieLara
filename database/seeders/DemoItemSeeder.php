@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class DemoItemSeeder extends Seeder
 {
+    /**
+     * 検証用のカテゴリと商品データを作成する。
+     *
+     * @return void
+     */
     private $unCategorizedItems = [
         [
             'code'               => 1,

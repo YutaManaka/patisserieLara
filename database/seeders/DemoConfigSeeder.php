@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class DemoConfigSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * システム設定のデータを作成する。
      *
      * @return void
      */

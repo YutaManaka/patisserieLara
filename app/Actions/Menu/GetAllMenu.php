@@ -15,14 +15,14 @@ class GetAllMenu
         'management' => [
             'name'  => '店舗管理',
             'items' => [
-                // 'transaction' => [
-                //     'name'        => '売上',
-                //     'route'       => 'transaction',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
+                'order' => [
+                    'name'        => '売上',
+                    'route'       => 'order',
+                    'permissions' => [
+                        User::PERMISSION_SYSTEM,
+                        User::PERMISSION_ADMIN,
+                    ],
+                ],
                 'category' => [
                     'name'        => 'カテゴリ',
                     'route'       => 'category',
@@ -39,14 +39,6 @@ class GetAllMenu
                         User::PERMISSION_ADMIN,
                     ],
                 ],
-                // 'receipt' => [
-                //     'name'        => 'レシート',
-                //     'route'       => 'receipt',
-                //     'permissions' => [
-                //         User::PERMISSION_SYSTEM,
-                //         User::PERMISSION_ADMIN,
-                //     ],
-                // ],
             ],
         ],
         'settings' => [
