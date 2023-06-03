@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class DefaultUserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * ユーザーを追加する。
      *
      * @return void
      */

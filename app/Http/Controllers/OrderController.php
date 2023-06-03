@@ -22,12 +22,12 @@ class OrderController extends Controller
     ) {
         $orders = $action->execute([
             'date' => now(),
-        ])->with(['items']);
+        ])->with(['item']);
 
         return Inertia::render(
             'Order/Index',
             [
-                'orders' => $orders->paginate(30),
+                'orders' => $orders->paginate(20),
             ]
         );
     }
