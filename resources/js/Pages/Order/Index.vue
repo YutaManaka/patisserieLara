@@ -23,13 +23,20 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  commonLabels: {
+    type: Object,
+    required: true,
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
 })
 
-const showConfirmationModal = ref(false)
 const headers = {
   item_name: props.orderLabels.item_name,
+  price: props.commonLabels.price,
   quantity: props.orderLabels.quantity,
-  price: props.orderLabels.price,
   created_at: props.orderLabels.created_at,
   actions: props.orderLabels.actions,
 }
@@ -39,7 +46,7 @@ const reload = window._.debounce(() => {
     only: ['orders'],
   })
   reload()
-}, 10000)
+}, 30000)
 reload()
 const onReloadTransactionClicked = () => {
   reload()
@@ -51,8 +58,14 @@ const onPaginationChanged = (page) => {
 }
 const dateFormat = (date, format = 'Y/MM/DD') => {
   return !date
-    ? ''
-    : moment(date).format(format)
+  ? ''
+  : moment(date).format(format)
+}
+
+// レシートボタン
+const showReceiptModal = ref(false)
+const onReceiptButtonClicked = (item) => {
+  showReceiptModal.value = true
 }
 </script>
 
@@ -67,6 +80,9 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
         <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
           <div class="w-full px-2 lg:px-0 ml-5 mr-5">
             <div class="flex">
+              <div class="mt-8 text-xl font-bold">
+                本日の売上 : {{ totalPrice.toLocaleString() }} 円(税込)
+              </div>
               <div class="flex-grow" />
               <div class="flex-none mt-5 px-4 py-2 pr-8 ">
                 <white-button @click="onReloadTransactionClicked">
@@ -80,21 +96,10 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
                 :items="orders.data"
                 no-data-text="本日の注文はありません"
               >
-                <template #order_no="{ item, index }">
-                  <div
-                    v-if="item.sequence === 1 || index === 0"
-                    class="text-2xl rounded-md bg-gray-500 pl-1 pr-1 pt-1 pb-1 text-white font-bold"
-                  >
-                    {{ item.order_no }}
-                  </div>
-                </template>
                 <template #price="{ item }">
                   <div>
-                    <div class="text-right">
+                    <div class="text-center">
                       ¥{{ item.item?.price.toLocaleString() }}
-                      <div class="text-sm">
-                        ¥{{ item.tax?.toLocaleString() }}
-                      </div>
                     </div>
                   </div>
                 </template>
@@ -104,10 +109,12 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
                       <div class="font-bold">
                         {{ item.order_no }}-{{ item.sequence }}
                       </div>
-                      <span class="text-lg">{{ item.item?.name }}</span>
-                      <div class="text-sm">
-                        {{ item.item?.code }}
-                      </div>
+                      <span class="text-sm">
+                        ({{ item.item?.code }})
+                      </span>
+                      <span class="text-lg">
+                        {{ item.item?.name }}
+                      </span>
                     </div>
                   </div>
                 </template>
@@ -121,6 +128,15 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
                 <template #created_at="{ item }">
                   <div>
                     {{ dateFormat(item.created_at, 'HH:mm:ss') }}
+                  </div>
+                </template>
+                <template #actions="{ item }">
+                  <div v-if="item.sequence === 1">
+                    <secondary-button
+                      @click="onReceiptButtonClicked(item)"
+                    >
+                      レシート
+                    </secondary-button>
                   </div>
                 </template>
               </data-table>
@@ -137,8 +153,11 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
     </panel-layout>
     <!-- レシート表示用モーダル -->
     <confirmation-modal
-      :show="showConfirmationModal"
+      :show="showReceiptModal"
     >
+      <template #icon>
+        {{ '' }}
+      </template>
       <template #title>
         レシート
       </template>
@@ -148,7 +167,7 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
       <template #footer>
         <secondary-button
           class="mr-4"
-          @click="showConfirmationModal = false"
+          @click="showReceiptModal = false"
         >
           キャンセル
         </secondary-button>
