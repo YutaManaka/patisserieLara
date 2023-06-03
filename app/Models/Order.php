@@ -14,11 +14,12 @@ class Order extends Model
 
     public const ORDER_LABELS = [
         'title'      => '注文状況',
+        'delivered'  => '',
         'item_name'  => '商品名',
         'quantity'   => '数量',
         'item_price' => '単価(税込)',
         'created_at' => '注文日時',
-        'action'     => '',
+        'receipt'    => '',
     ];
 
     protected $fillable = [

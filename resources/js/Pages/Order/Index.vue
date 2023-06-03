@@ -12,6 +12,7 @@ import Pagination from '@/Components/Pagination'
 import PanelLayout from '@/Components/PanelLayout'
 import { ref } from 'vue'
 import SecondaryButton from '@/Components/SecondaryButton'
+import WarningButton from '@/Components/WarningButton'
 import WhiteButton from '@/Components/WhiteButton'
 
 const props = defineProps({
@@ -34,11 +35,12 @@ const props = defineProps({
 })
 
 const headers = {
+  delivered: props.orderLabels.delivered,
   item_name: props.orderLabels.item_name,
   price: props.commonLabels.price,
   quantity: props.orderLabels.quantity,
   created_at: props.orderLabels.created_at,
-  actions: props.orderLabels.actions,
+  receipt: props.orderLabels.receipt,
 }
 
 const reload = window._.debounce(() => {
@@ -62,7 +64,23 @@ const dateFormat = (date, format = 'Y/MM/DD') => {
   : moment(date).format(format)
 }
 
-// レシートボタン
+// 提供済ボタン
+const onDeliveredButtonClicked = item => {
+  Inertia.put(route('order.set-orders-delivered', {
+    order: item.id,
+    previous_page: props.orders.current_page,
+  }))
+}
+
+// 提供済になると見た目が変化
+const switchButtonStyle = item => item.delivered_at
+  ? 'bg-neutral-300 pointer-events-none'
+  : ''
+const switchTextStyle = item => item.delivered_at
+  ? 'text-neutral-400 line-through'
+  : ''
+
+  // レシートボタン
 const showReceiptModal = ref(false)
 const onReceiptButtonClicked = (item) => {
   showReceiptModal.value = true
@@ -85,7 +103,9 @@ const onReceiptButtonClicked = (item) => {
               </div>
               <div class="flex-grow" />
               <div class="flex-none mt-5 px-4 py-2 pr-8 ">
-                <white-button @click="onReloadTransactionClicked">
+                <white-button
+                  @click="onReloadTransactionClicked"
+                >
                   更新
                 </white-button>
               </div>
@@ -96,15 +116,20 @@ const onReceiptButtonClicked = (item) => {
                 :items="orders.data"
                 no-data-text="本日の注文はありません"
               >
-                <template #price="{ item }">
-                  <div>
-                    <div class="text-center">
-                      ¥{{ item.item?.price.toLocaleString() }}
-                    </div>
+                <template #delivered="{ item }">
+                  <div v-if="item.sequence === 1">
+                    <warning-button
+                      :class="switchButtonStyle(item)"
+                      @click="onDeliveredButtonClicked(item)"
+                    >
+                      <div class="text-xl">
+                        済
+                      </div>
+                    </warning-button>
                   </div>
                 </template>
                 <template #item_name="{ item }">
-                  <div>
+                  <div :class="switchTextStyle(item)">
                     <div class="text-left">
                       <div class="font-bold">
                         {{ item.order_no }}-{{ item.sequence }}
@@ -118,19 +143,27 @@ const onReceiptButtonClicked = (item) => {
                     </div>
                   </div>
                 </template>
+                <template #price="{ item }">
+                  <div :class="switchTextStyle(item)">
+                    <div class="text-center">
+                      ¥{{ item.item?.price.toLocaleString() }}
+                    </div>
+                  </div>
+                </template>
                 <template #quantity="{ item }">
                   <div
                     class="text-2xl font-bold"
+                    :class="switchTextStyle(item)"
                   >
                     {{ item.quantity }}
                   </div>
                 </template>
                 <template #created_at="{ item }">
-                  <div>
+                  <div :class="switchTextStyle(item)">
                     {{ dateFormat(item.created_at, 'HH:mm:ss') }}
                   </div>
                 </template>
-                <template #actions="{ item }">
+                <template #receipt="{ item }">
                   <div v-if="item.sequence === 1">
                     <secondary-button
                       @click="onReceiptButtonClicked(item)"

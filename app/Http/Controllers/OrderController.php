@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Actions\Order\GetOrders;
 use App\Actions\Order\GetTotalPrice;
+use App\Actions\Order\SetOrdersDelivered;
 use App\Consts\Common;
 use App\Models\Order;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -37,5 +39,15 @@ class OrderController extends Controller
                 'totalPrice' => $totalPrice,
             ]
         );
+    }
+
+    public function setOrdersDelivered(
+        Order $order,
+        SetOrdersDelivered $action
+    ) {
+        $action->execute($order);
+
+        return Redirect::route('order', ['page' => request()->query('previous_page')])
+            ->with('success', '提供済にしました。');
     }
 }

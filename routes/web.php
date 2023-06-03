@@ -43,6 +43,10 @@ Route::middleware([
         'update'  => 'order.update',
         'destroy' => 'order.destroy',
     ]);
+    Route::put(
+        '/orders/{order}/set-orders-delivered',
+        [\App\Http\Controllers\OrderController::class, 'setOrdersDelivered'],
+    )->name('order.set-orders-delivered');
 
     // カテゴリ
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->names([
