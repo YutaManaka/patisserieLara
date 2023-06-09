@@ -145,7 +145,7 @@ const toggleUnCategorizedItems = () => {
                     class="shadow-md hover:shadow-lg hover:bg-gray-100 rounded-lg bg-white my-12 mx-5"
                   >
                     <img
-                      :src="item.image_url"
+                      :src="item.img_url"
                       class="overflow-hidden max-h-40 ml-auto mr-auto"
                     >
                     <div class="p-1 md:p-2 lg:p-4">
