@@ -57,7 +57,7 @@ class ItemController extends Controller
 
     public function store(StoreItem $action, StoreItemRequest $request)
     {
-        $action->execute($request->all());
+        $action->execute($request->all(), $request->image);
 
         return Redirect::route('item')->with('success', '作成しました。');
     }
@@ -75,7 +75,7 @@ class ItemController extends Controller
 
     public function update(Item $Item, UpdateItem $action, UpdateItemRequest $request)
     {
-        $action->execute($Item, $request->all());
+        $action->execute($Item, $request->all(), $request->image);
 
         return Redirect::route('item')->with('success', '更新しました。');
     }

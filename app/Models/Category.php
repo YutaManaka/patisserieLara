@@ -41,13 +41,14 @@ class Category extends Model
     // TODO: image_urlの取得
     public function getImageUrlAttribute()
     {
-        $url = $this->attributes['image_url'] ?? null;
+        $url = $this->attributes['img_url'] ?? null;
         if (!$url) {
             return null;
         }
 
-        return Str::startsWith($url, 'http')
-            ? $url
-            : Storage::disk('s3')->url($url);
+        return $url;
+        // return Str::startsWith($url, 'http')
+        //     ? $url
+        //     : Storage::disk('s3')->url($url);
     }
 }

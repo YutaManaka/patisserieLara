@@ -74,10 +74,10 @@ const onCategoryDisabled = async (item) => {
                 no-data-text="カテゴリはありません"
                 @row-click="onRowClicked"
               >
-                <template #image_url="slotProps">
+                <template #img_url="{ item }">
                   <td class="py-3 px-6 md:p-0 text-center whitespace-nowrap">
                     <img
-                      :src="slotProps.item.image_url"
+                      :src="item.img_url"
                       class="mx-auto shadow-lg rounded max-w-full h-auto align-middle border-none"
                       style="width:120px"
                     >
