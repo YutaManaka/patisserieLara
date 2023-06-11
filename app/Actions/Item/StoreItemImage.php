@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Actions\Category;
+namespace App\Actions\Item;
 
 use App\Actions\Image\DeleteImage;
-use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Support\Facades\Storage;
 
-class StoreCategoryImage
+class StoreItemImage
 {
     public function __construct(private DeleteImage $deleteAction)
     {
     }
 
-    public function execute(Category $category, $file): Category
+    public function execute(Item $item, $file): Item
     {
         // すでにファイルがあれば削除
-        $this->deleteAction->execute($category->img_url);
+        $this->deleteAction->execute($item->img_url);
 
         $path     = Storage::put('public/images/', $file);
         $fileName = ltrim($path, 'public/images//');
 
         // モデルにパスを保存
-        $category->update(['img_url' => "/storage/images/{$fileName}"]);
+        $item->update(['img_url' => "/storage/images/{$fileName}"]);
 
-        return $category;
+        return $item;
     }
 }

@@ -3,11 +3,26 @@
 namespace App\Actions\Item;
 
 use App\Models\Item;
+use Illuminate\Support\Facades\DB;
 
 class StoreItem
 {
-    public function execute(array $attributes): Item
+    public function __construct(private StoreItemImage $storeItemImageAction)
     {
-        return Item::create($attributes);
+    }
+
+    public function execute(array $attributes, $file = null): Item
+    {
+        DB::beginTransaction();
+
+        $item = Item::create($attributes);
+
+        if ($file) {
+            $this->storeItemImageAction->execute($item, $file);
+        }
+
+        DB::commit();
+
+        return $item;
     }
 }
