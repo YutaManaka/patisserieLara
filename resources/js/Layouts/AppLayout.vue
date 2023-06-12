@@ -1,3 +1,32 @@
+<script setup>
+import { Inertia } from "@inertiajs/inertia"
+import JetBanner from "@/Components/Banner"
+import JetDropdown from "@/Components/Dropdown"
+import JetDropdownLink from "@/Components/DropdownLink"
+import FlashMessages from "@/Components/FlashMessages"
+
+defineProps({
+  cashRegisterValue: {
+    type: Number,
+    default: null,
+  },
+  isWebView: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  isTransactionView: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+})
+
+const onLogoClicked = () => Inertia.get(route('order'))
+const logout = () => Inertia.post(route('logout'))
+
+</script>
+
 <template>
   <div>
     <jet-banner />
@@ -13,6 +42,7 @@
                   id="headerLogo"
                   src="/images/header-logo.png"
                   style="height: 50px"
+                  @click="onLogoClicked()"
                 >
               </div>
 
@@ -20,12 +50,6 @@
               <div
                 class="hidden text-neutral-700 bg-white hover:text-neutral-900 space-x-8 sm:-my-px sm:ml-10 sm:flex"
               >
-                <jet-nav-link
-                  :href="route('dashboard')"
-                  :active="route().current('dashboard')"
-                >
-                  Dashboard
-                </jet-nav-link>
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                   <template
                     v-for="(menuItem, menuIndex) in $page.props.menuItems"
@@ -36,7 +60,7 @@
                         <span class="inline-flex rounded-md">
                           <button
                             type="button"
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:text-neutral-900 focus:outline-none transition ease-in-out duration-150"
+                            class="inline-flex items-center px-6 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-neutral-700 bg-white hover:text-neutral-900 focus:outline-none transition ease-in-out duration-150"
                           >
                             {{ menuItem.name }}
                             <svg
@@ -121,65 +145,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from "vue";
-import { Inertia } from "@inertiajs/inertia";
-import JetBanner from "@/Components/Banner";
-import JetDropdown from "@/Components/Dropdown";
-import JetDropdownLink from "@/Components/DropdownLink";
-import JetNavLink from "@/Components/NavLink";
-import FlashMessages from "@/Components/FlashMessages";
-
-defineProps({
-  cashRegisterValue: {
-    type: Number,
-    default: null,
-  },
-  isWebView: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  isTransactionView: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-});
-
-const logout = () => Inertia.post(route("logout"));
-
-onMounted(() => {
-  const logoClickCount = ref(0);
-  const timer = ref(null);
-  const timeout = 2000;
-  const headerLogo = document.getElementById("headerLogo");
-
-  // ロゴのクリック回数によって動作を分岐
-  headerLogo.addEventListener("click", () => {
-    logoClickCount.value += 1;
-    if (logoClickCount.value === 1) {
-      timer.value = setTimeout(() => {
-        if (logoClickCount.value >= 5) {
-          window.webkit?.messageHandlers.googoTerminalReset.postMessage("");
-        }
-        if (logoClickCount.value === 1) {
-          Inertia.get(route("dashboard"));
-        }
-        timer.value = null;
-        logoClickCount.value = 0;
-      }, timeout);
-    }
-  });
-
-  // WebView時の拡大禁止
-  document.addEventListener(
-    "dblclick",
-    (e) => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
-});
-</script>
