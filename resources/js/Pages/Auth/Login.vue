@@ -1,7 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -33,11 +32,16 @@ const submit = () => {
 </script>
 
 <template>
-  <Head title="Log in" />
+  <Head title="ログイン" />
 
   <AuthenticationCard>
     <template #logo>
-      <AuthenticationCardLogo />
+      <!-- <AuthenticationCardLogo /> -->
+      <img
+        id="headerLogo"
+        src="/images/header-logo.png"
+        style="height: 150px"
+      >
     </template>
 
     <div
@@ -51,7 +55,7 @@ const submit = () => {
       <div>
         <InputLabel
           for="email"
-          value="Email"
+          value="メールアドレス"
         />
         <TextInput
           id="email"
@@ -71,7 +75,7 @@ const submit = () => {
       <div class="mt-4">
         <InputLabel
           for="password"
-          value="Password"
+          value="パスワード"
         />
         <TextInput
           id="password"
@@ -93,25 +97,17 @@ const submit = () => {
             v-model:checked="form.remember"
             name="remember"
           />
-          <span class="ml-2 text-sm text-gray-600">Remember me</span>
+          <span class="ml-2 text-sm text-gray-600">ログイン状態を保持する</span>
         </label>
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <Link
-          v-if="canResetPassword"
-          :href="route('password.request')"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Forgot your password?
-        </Link>
-
         <PrimaryButton
           class="ml-4"
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing"
         >
-          Log in
+          ログイン
         </PrimaryButton>
       </div>
     </form>
