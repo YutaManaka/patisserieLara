@@ -83,6 +83,12 @@ const switchTextStyle = item => item.delivered_at
   // レシートボタン
 const showReceiptModal = ref(false)
 const onReceiptButtonClicked = (item) => {
+  const a = props.orders.data.filter(order => order.order_no === item.order_no)
+  axios.put(route('get-receipt'), {
+    // order_noが同じ注文を取得
+    orders: a
+  })
+  .then()
   showReceiptModal.value = true
 }
 </script>

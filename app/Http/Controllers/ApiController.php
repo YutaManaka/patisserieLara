@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Order\StoreOrder;
+use App\Actions\Receipt\getReceipt;
 
 class ApiController extends Controller
 {
-    public function createOrder(StoreOrder $action)
+    public function storeOrder(StoreOrder $action)
     {
         return $action->execute(request()->only(['items']));
+    }
+
+    public function getReceipt(getReceipt $action)
+    {
+        return $action->execute(request()->get('orders'));
     }
 }
