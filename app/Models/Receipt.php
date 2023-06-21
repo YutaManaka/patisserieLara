@@ -15,5 +15,6 @@ class Receipt extends Model
         'total_price',
         'total_tax',
         'total_tax_excluded_price',
+        'img_url',
     ];
 }

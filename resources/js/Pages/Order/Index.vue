@@ -7,6 +7,7 @@ import AppLayout from '@/Layouts/AppLayout'
 import ConfirmationModal from '@/Components/ConfirmationModal'
 import DataTable from '@/Components/DataTable'
 import { Inertia } from '@inertiajs/inertia'
+import 'moment/dist/locale/ja'
 import moment from 'moment'
 import Pagination from '@/Components/Pagination'
 import PanelLayout from '@/Components/PanelLayout'
@@ -17,6 +18,14 @@ import WhiteButton from '@/Components/WhiteButton'
 
 const props = defineProps({
   orders: {
+    type: Object,
+    required: true,
+  },
+  receipts: {
+    type: Object,
+    required: true,
+  },
+  configs: {
     type: Object,
     required: true,
   },
@@ -49,7 +58,6 @@ const reload = window._.debounce(() => {
   })
   reload()
 }, 30000)
-reload()
 const onReloadTransactionClicked = () => {
   reload()
 }
@@ -82,14 +90,20 @@ const switchTextStyle = item => item.delivered_at
 
   // レシートボタン
 const showReceiptModal = ref(false)
+const receiptId = ref(null)
+const receipt = ref({})
+const sameSequenceOrders = ref([])
 const onReceiptButtonClicked = (item) => {
-  const a = props.orders.data.filter(order => order.order_no === item.order_no)
-  axios.put(route('get-receipt'), {
-    // order_noが同じ注文を取得
-    orders: a
-  })
-  .then()
+  receiptId.value = item.receipt_id
+  receipt.value = props.receipts.find((receipt) => receipt.id === item.receipt_id)
+  sameSequenceOrders.value = props.orders.data.filter(order => order.order_no === item.order_no)
   showReceiptModal.value = true
+}
+// moment.locale("ja")
+const dateTimeFormat = (date, format = 'LLLL') => {
+  return !date
+  ? ''
+  : moment(date).format(format)
 }
 </script>
 
@@ -201,7 +215,22 @@ const onReceiptButtonClicked = (item) => {
         レシート
       </template>
       <template #content>
-        レシート内容
+        <div class="border border-black">
+          <div class="m-6">
+            <div>
+              {{ configs.shop_name }}
+            </div>
+            <span>
+              <span>TEL: {{ configs.tel }}  </span>
+              <span>FAX: {{ configs.fax }}</span>
+            </span>
+            <div>{{ dateTimeFormat(receipt.created_at) }}</div>
+
+            <div>商品 税込価格</div>
+            <div>合計: {{ receipt.total_price.toLocaleString() }} 円</div>
+            <div>(消費税: {{ receipt.total_tax.toLocaleString() }} 円)</div>
+          </div>
+        </div>
       </template>
       <template #footer>
         <secondary-button

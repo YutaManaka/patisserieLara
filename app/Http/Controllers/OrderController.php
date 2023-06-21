@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Config\GetConfigs;
 use App\Actions\Order\GetOrders;
 use App\Actions\Order\GetTotalPrice;
 use App\Actions\Order\SetOrdersDelivered;
+use App\Actions\Receipt\GetReceipts;
 use App\Consts\Common;
 use App\Models\Order;
 use Illuminate\Support\Facades\Redirect;
@@ -22,21 +24,33 @@ class OrderController extends Controller
 
     public function index(
         GetOrders $action,
-        GetTotalPrice $getTotalPriceAction
+        GetTotalPrice $getTotalPriceAction,
+        GetReceipts $getReceiptsAction,
+        GetConfigs $getConfigsAction,
     ) {
         $orders = $action->execute([
             'date' => now(),
         ])->with(['item']);
 
+        $receipts = $getReceiptsAction->execute([
+            'date' => now(),
+        ]);
+
         $totalPrice = $getTotalPriceAction->execute([
             'date' => now(),
         ]);
+
+        $configs = $getConfigsAction->execute()
+            ->get()
+            ->mapWithKeys(fn ($config) => [$config->key => $config->value]);
 
         return Inertia::render(
             'Order/Index',
             [
                 'orders'     => $orders->paginate(20),
+                'receipts'   => $receipts->get(),
                 'totalPrice' => $totalPrice,
+                'configs'    => $configs,
             ]
         );
     }

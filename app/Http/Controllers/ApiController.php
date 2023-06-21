@@ -11,9 +11,4 @@ class ApiController extends Controller
     {
         return $action->execute(request()->only(['items']));
     }
-
-    public function getReceipt(getReceipt $action)
-    {
-        return $action->execute(request()->get('orders'));
-    }
 }

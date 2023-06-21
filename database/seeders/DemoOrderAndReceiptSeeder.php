@@ -3,12 +3,13 @@
 namespace Database\Seeders;
 
 use App\Actions\Order\StoreOrder;
+use App\Actions\Receipt\StoreReceipt;
 use App\Models\Item;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class DemoOrderSeeder extends Seeder
+class DemoOrderAndReceiptSeeder extends Seeder
 {
     /**
      * 検証用注文データを作成。
@@ -40,7 +41,10 @@ class DemoOrderSeeder extends Seeder
                 ];
             }
             // 注文API実行
-            app(StoreOrder::class)->execute(['items' => $items]);
+            $response = app(StoreOrder::class)->execute(['items' => $items]);
+
+            // レシート作成
+            app(StoreReceipt::class)->execute($response['order_ids']);
 
             // 時間を進める
             Carbon::setTestNow(now('Asia/Tokyo')->addMinutes(10));

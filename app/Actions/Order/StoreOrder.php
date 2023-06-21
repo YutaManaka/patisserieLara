@@ -20,11 +20,12 @@ class StoreOrder
             ++$maxOrderNo;
 
             $subtotal = 0;
+            $orderIds = [];
 
             foreach ($attributes['items'] ?? [] as $key => $cartItem) {
                 $item = Item::find($cartItem['item_id']);
 
-                Order::create([
+                $order = Order::create([
                     'item_id'         => $item->id,
                     'order_no'        => $maxOrderNo,
                     'sequence'        => $key + 1,
@@ -34,9 +35,14 @@ class StoreOrder
                 ]);
                 // 小計をに加算
                 $subtotal += $item->price * $cartItem['quantity'];
+                // orderのidを記録
+                $orderIds[] = $order->id;
             }
 
-            return ['subtotal' => $subtotal];
+            return [
+                'subtotal'  => $subtotal,
+                'order_ids' => $orderIds,
+            ];
         }, 5);
     }
 }
