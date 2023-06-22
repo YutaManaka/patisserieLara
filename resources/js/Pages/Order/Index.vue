@@ -215,20 +215,54 @@ const dateTimeFormat = (date, format = 'LLLL') => {
         レシート
       </template>
       <template #content>
-        <div class="border border-black">
-          <div class="m-6">
-            <div>
+        <div class="border-4 border-black">
+          <div class="mx-6 my-10">
+            <div class="flex justify-center text-4xl mb-4">
               {{ configs.shop_name }}
             </div>
-            <span>
-              <span>TEL: {{ configs.tel }}  </span>
-              <span>FAX: {{ configs.fax }}</span>
-            </span>
-            <div>{{ dateTimeFormat(receipt.created_at) }}</div>
-
-            <div>商品 税込価格</div>
-            <div>合計: {{ receipt.total_price.toLocaleString() }} 円</div>
-            <div>(消費税: {{ receipt.total_tax.toLocaleString() }} 円)</div>
+            <div class="flex">
+              <div class="mr-6">
+                TEL: {{ configs.tel }}
+              </div>
+              <div>
+                FAX: {{ configs.fax }}
+              </div>
+            </div>
+            <div class="flex justify-center my-4">
+              {{ dateTimeFormat(receipt.created_at) }}
+            </div>
+            <div
+              v-for="sameSequenceOrder in sameSequenceOrders"
+              :key="sameSequenceOrder.id"
+            >
+              <div class="flex justify-between my-2">
+                <div class="flex">
+                  {{ sameSequenceOrder.item.receipt_name }}
+                  <div class="ml-3">
+                    *{{ sameSequenceOrder.quantity }}
+                  </div>
+                </div>
+                <div class="">
+                  {{ (sameSequenceOrder.item.price * sameSequenceOrder.quantity).toLocaleString() }}円
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between my-2">
+              <div class="text-2xl">
+                合計
+              </div>
+              <div class="text-2xl">
+                {{ receipt.total_price.toLocaleString() }} 円
+              </div>
+            </div>
+            <div class="flex justify-between my-2">
+              <div class="ml-6 text-lg">
+                (消費税
+              </div>
+              <div class="text-lg">
+                {{ receipt.total_tax.toLocaleString() }} 円)
+              </div>
+            </div>
           </div>
         </div>
       </template>
