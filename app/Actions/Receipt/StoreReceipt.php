@@ -16,8 +16,8 @@ class StoreReceipt
         $orders = Order::whereIn('id', $orderIds)->with('item')->get();
 
         foreach ($orders as $order) {
-            $totalPrice            += $order->item->price;
-            $totalTax              += $order->item->tax;
+            $totalPrice += $order->item->price;
+            $totalTax += $order->item->tax;
             $totalTaxExcludedPrice += $order->item->tax_excluded_price;
         }
 

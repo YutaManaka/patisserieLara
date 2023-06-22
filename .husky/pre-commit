@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# npm run php-cs-fixer
+npm run php-cs-fixer
 npm run lint
