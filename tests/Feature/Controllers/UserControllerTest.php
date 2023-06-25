@@ -10,6 +10,8 @@ class UserControllerTest extends TestCase
 {
     use WithDb;
 
+    private $user;
+
     public function setUp(): void
     {
         parent::setUp();
