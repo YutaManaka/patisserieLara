@@ -217,7 +217,7 @@ const dateTimeFormat = (date, format = 'LLLL') => {
       <template #content>
         <div class="border-4 border-black">
           <div class="mx-6 my-10">
-            <div class="flex justify-center text-4xl mb-4">
+            <div class="flex justify-center text-4xl font-bold mb-4">
               {{ configs.shop_name }}
             </div>
             <div class="flex">
@@ -227,6 +227,20 @@ const dateTimeFormat = (date, format = 'LLLL') => {
               <div>
                 FAX: {{ configs.fax }}
               </div>
+            </div>
+            <div v-if="configs.receipt_description">
+              <div class="flex mt-4 justify-center">
+                ◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
+              </div>
+              <div class="flex text-lg justify-center">
+                {{ configs.receipt_description }}
+              </div>
+              <div class="flex mb-4 justify-center">
+                ◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
+              </div>
+            </div>
+            <div class="flex my-4 text-lg font-semibold justify-center">
+              ＜領収書＞
             </div>
             <div class="flex justify-center my-4">
               {{ dateTimeFormat(receipt.created_at) }}
@@ -251,7 +265,7 @@ const dateTimeFormat = (date, format = 'LLLL') => {
               <div class="text-2xl">
                 合計
               </div>
-              <div class="text-2xl">
+              <div class="text-2xl font-bold">
                 {{ receipt.total_price.toLocaleString() }} 円
               </div>
             </div>
