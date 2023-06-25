@@ -8,7 +8,7 @@ class SetOrdersDelivered
 {
     public function execute(Order $order)
     {
-        $orders = Order::query()
+        Order::query()
             ->where([
                 'order_no'   => $order->order_no,
                 'order_date' => now()->format('Y-m-d'),

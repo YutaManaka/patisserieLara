@@ -37,4 +37,9 @@ class Order extends Model
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
+
+    public function receipt(): BelongsTo
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id');
+    }
 }

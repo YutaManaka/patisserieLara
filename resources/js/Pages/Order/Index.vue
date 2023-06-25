@@ -7,6 +7,7 @@ import AppLayout from '@/Layouts/AppLayout'
 import ConfirmationModal from '@/Components/ConfirmationModal'
 import DataTable from '@/Components/DataTable'
 import { Inertia } from '@inertiajs/inertia'
+import 'moment/dist/locale/ja'
 import moment from 'moment'
 import Pagination from '@/Components/Pagination'
 import PanelLayout from '@/Components/PanelLayout'
@@ -17,6 +18,14 @@ import WhiteButton from '@/Components/WhiteButton'
 
 const props = defineProps({
   orders: {
+    type: Object,
+    required: true,
+  },
+  receipts: {
+    type: Object,
+    required: true,
+  },
+  configs: {
     type: Object,
     required: true,
   },
@@ -49,7 +58,6 @@ const reload = window._.debounce(() => {
   })
   reload()
 }, 30000)
-reload()
 const onReloadTransactionClicked = () => {
   reload()
 }
@@ -82,8 +90,20 @@ const switchTextStyle = item => item.delivered_at
 
   // レシートボタン
 const showReceiptModal = ref(false)
+const receiptId = ref(null)
+const receipt = ref({})
+const sameSequenceOrders = ref([])
 const onReceiptButtonClicked = (item) => {
+  receiptId.value = item.receipt_id
+  receipt.value = props.receipts.find((receipt) => receipt.id === item.receipt_id)
+  sameSequenceOrders.value = props.orders.data.filter(order => order.order_no === item.order_no)
   showReceiptModal.value = true
+}
+// moment.locale("ja")
+const dateTimeFormat = (date, format = 'LLLL') => {
+  return !date
+  ? ''
+  : moment(date).format(format)
 }
 </script>
 
@@ -195,7 +215,70 @@ const onReceiptButtonClicked = (item) => {
         レシート
       </template>
       <template #content>
-        レシート内容
+        <div class="border-4 border-black">
+          <div class="mx-6 my-10">
+            <div class="flex justify-center text-4xl font-bold mb-4">
+              {{ configs.shop_name }}
+            </div>
+            <div class="flex">
+              <div class="mr-6">
+                TEL: {{ configs.tel }}
+              </div>
+              <div>
+                FAX: {{ configs.fax }}
+              </div>
+            </div>
+            <div v-if="configs.receipt_description">
+              <div class="flex mt-4 justify-center">
+                ◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
+              </div>
+              <div class="flex text-lg justify-center">
+                {{ configs.receipt_description }}
+              </div>
+              <div class="flex mb-4 justify-center">
+                ◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
+              </div>
+            </div>
+            <div class="flex my-4 text-lg font-semibold justify-center">
+              ＜領収書＞
+            </div>
+            <div class="flex justify-center my-4">
+              {{ dateTimeFormat(receipt.created_at) }}
+            </div>
+            <div
+              v-for="sameSequenceOrder in sameSequenceOrders"
+              :key="sameSequenceOrder.id"
+            >
+              <div class="flex justify-between my-2">
+                <div class="flex">
+                  {{ sameSequenceOrder.item.receipt_name }}
+                  <div class="ml-3">
+                    *{{ sameSequenceOrder.quantity }}
+                  </div>
+                </div>
+                <div class="">
+                  {{ (sameSequenceOrder.item.price * sameSequenceOrder.quantity).toLocaleString() }}円
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between my-2">
+              <div class="text-2xl">
+                合計
+              </div>
+              <div class="text-2xl font-bold">
+                {{ receipt.total_price.toLocaleString() }} 円
+              </div>
+            </div>
+            <div class="flex justify-between my-2">
+              <div class="ml-6 text-lg">
+                (消費税
+              </div>
+              <div class="text-lg">
+                {{ receipt.total_tax.toLocaleString() }} 円)
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
       <template #footer>
         <secondary-button

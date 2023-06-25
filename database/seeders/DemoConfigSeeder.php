@@ -33,6 +33,12 @@ class DemoConfigSeeder extends Seeder
                 'value'       => '"0120-123-789"',
                 'description' => 'Fax番号',
             ],
+            [
+                'key'         => 'receipt_description',
+                'type'        => 'string',
+                'value'       => '"ご利用ありがとうございます！"',
+                'description' => 'レシート文言',
+            ],
         ];
 
         Config::upsert(

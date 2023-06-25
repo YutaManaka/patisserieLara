@@ -18,7 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// TODO: 認証
-
 // 注文API
-Route::post('store-order', [\App\Http\Controllers\Api\App\ApiController::class, 'storeOrder']);
+Route::post('store-order', [\App\Http\Controllers\ApiController::class, 'storeOrder']);
