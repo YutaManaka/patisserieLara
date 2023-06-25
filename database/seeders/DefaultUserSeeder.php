@@ -18,21 +18,27 @@ class DefaultUserSeeder extends Seeder
         $users = [
             [
                 'name'       => 'root',
-                'email'      => 'root',
+                'email'      => 'root@pl.com',
                 'password'   => Hash::make('root'),
                 'permission' => User::PERMISSION_ROOT,
             ],
             [
                 'name'       => 'システム管理者',
-                'email'      => 'system',
+                'email'      => 'system@pl.com',
                 'password'   => Hash::make('system'),
                 'permission' => User::PERMISSION_SYSTEM,
             ],
             [
                 'name'       => '運用管理者',
-                'email'      => 'admin',
+                'email'      => 'admin@pl.com',
                 'password'   => Hash::make('admin'),
                 'permission' => User::PERMISSION_ADMIN,
+            ],
+            [
+                'name'       => 'サンプル',
+                'email'      => 'sample@pl.com',
+                'password'   => Hash::make('sample'),
+                'permission' => User::PERMISSION_ROOT,
             ],
         ];
 
