@@ -17,11 +17,21 @@ class StoreCategoryImage
         // すでにファイルがあれば削除
         $this->deleteAction->execute($category->img_url);
 
-        $path     = Storage::put('public/images/', $file);
-        $fileName = ltrim($path, 'public/images//');
+        if (app()->environment() === 'production') {
+            // バケット内の指定フォルダへアップロード
+            $s3 = Storage::disk('s3')->putFile('/categories', $file, 'public');
 
-        // モデルにパスを保存
-        $category->update(['img_url' => "/storage/images/{$fileName}"]);
+            // アップロードファイルurlを取得
+            $path = Storage::disk('s3')->url($s3);
+        } else {
+            $path     = Storage::put('public/images/', $file);
+            $fileName = ltrim($path, 'public/images//');
+
+            // モデルにパスを保存
+            $path = "/storage/images/{$fileName}";
+        }
+
+        $category->update(['img_url' => $path]);
 
         return $category;
     }
