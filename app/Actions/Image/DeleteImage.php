@@ -8,15 +8,16 @@ class DeleteImage
 {
     public function execute(?string $imageUrl): bool
     {
-        // ローカルの処理
-        Storage::delete(str_replace('/storage', 'public', $imageUrl));
-
-        // TODO: s3の処理
-        // $s3 = Storage::disk('s3');
-        // // ファイルがあれば削除
-        // if ($s3ImageUrl && $s3->exists($s3ImageUrl)) {
-        //     return $s3->delete($s3ImageUrl);
-        // }
+        if (app()->environment() === 'production') {
+            $s3 = Storage::disk('s3');
+            // ファイルがあれば削除
+            if ($imageUrl && $s3->exists($imageUrl)) {
+                return $s3->delete($imageUrl);
+            }
+        } else {
+            // ローカルの処理
+            Storage::delete(str_replace('/storage', 'public', $imageUrl));
+        }
 
         return true;
     }
