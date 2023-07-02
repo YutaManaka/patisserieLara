@@ -53,15 +53,20 @@ const form = useForm({
   image: null,
   sort_order: 0,
   disabled: 0,
-});
+})
 const refImage = ref(null);
 const imageUrl = computed(() => (props.isNew ? '' : props.item.img_url))
 const onSubmitted = async () => {
   if (refImage.value) {
     [form.image] = refImage.value.files
   }
-  await form.post(route('item.update', { item: props.item.id }))
-};
+  if (props.isNew) {
+    console.log('store')
+    form.post(route('item.store'))
+  } else {
+    form.post(route('item.update', { item: props.item.id }))
+  }
+}
 const {
   filePreview: imagePreview,
   openFileView,
@@ -71,7 +76,7 @@ const onReturnClicked = () => {
   Inertia.get(route('item'))
 }
 const onDeleteButtonClicked = async () => {
-  await form.delete(route('item.destroy', { item: props.item.id }))
+  form.delete(route('item.destroy', { item: props.item.id }))
   showConfirmationModal.value = false
 }
 
@@ -89,7 +94,7 @@ onMounted(() => {
     form.sort_order = props.item.sort_order
     form.disabled = props.item.disabled
   }
-});
+})
 </script>
 
 <template>
@@ -135,6 +140,15 @@ onMounted(() => {
         <jet-input-error
           :message="form.errors.photo"
           class="mt-2"
+        />
+      </div>
+      <div class="col-span-6 my-3">
+        <input-control
+          id="code"
+          v-model="form.code"
+          :label="commonLabels.code"
+          :error="form.errors.code"
+          class="mt-1 block w-2/12"
         />
       </div>
       <div class="col-span-6 my-3">

@@ -5,6 +5,7 @@ namespace App\Http\Requests\Item;
 use App\Consts\Common;
 use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreItemRequest extends FormRequest
 {
@@ -32,7 +33,12 @@ class StoreItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'               => ['required', 'int', 'max:29999'],
+            'code' => [
+                'required',
+                'int',
+                'max:29999',
+                Rule::unique(Item::class)->ignore($this->id ?? null),
+            ],
             'image'              => ['nullable', 'mimes:jpeg,jpg,png'],
             'name'               => ['required', 'max:20'],
             'receipt_name'       => ['required', 'max:10'],
