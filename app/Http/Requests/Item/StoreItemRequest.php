@@ -37,7 +37,7 @@ class StoreItemRequest extends FormRequest
                 'required',
                 'int',
                 'max:29999',
-                Rule::unique(Item::class)->ignore($this->id ?? null),
+                Rule::unique(Item::class)->ignore($this->item->id ?? null),
             ],
             'image'              => ['nullable', 'mimes:jpeg,jpg,png'],
             'name'               => ['required', 'max:20'],
