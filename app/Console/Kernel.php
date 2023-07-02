@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('db:seed --class="DemoOrderAndReceiptSeeder"')
+            ->dailyAt('06:00');
     }
 
     /**
