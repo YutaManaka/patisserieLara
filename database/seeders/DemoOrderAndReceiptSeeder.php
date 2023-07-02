@@ -7,6 +7,7 @@ use App\Actions\Receipt\StoreReceipt;
 use App\Models\Item;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class DemoOrderAndReceiptSeeder extends Seeder
@@ -18,6 +19,10 @@ class DemoOrderAndReceiptSeeder extends Seeder
      */
     public function run()
     {
+        // 既存の売上データを削除
+        DB::table('orders')->truncate();
+
+        // 売上データ作成
         $orderNumber = rand(25, 50);
         Carbon::setTestNow(Carbon::createFromTime(10, 0, 0));
 
