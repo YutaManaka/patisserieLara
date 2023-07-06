@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CreateDemoOrdersAndReceipts;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('db:seed --class="DemoOrderAndReceiptSeeder"')
+        $schedule->command(CreateDemoOrdersAndReceipts::class)
             ->dailyAt('06:00');
     }
 
